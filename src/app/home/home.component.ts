@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../_services/alert.service';
 
 
 @Component({
@@ -10,9 +9,9 @@ import { AlertService } from '../_services/alert.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private alertService: AlertService ) { }
+  constructor( ) { }
 
   ngOnInit() {
-    this.alertService.success('ALERT success login');
+    
   }
 }
