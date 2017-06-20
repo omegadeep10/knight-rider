@@ -23,7 +23,7 @@
       ],
       "stylePreprocessorOptions": {
         "includePaths": [
-          "style-paths"
+          "includes"
         ]
       },
       "scripts": [],
