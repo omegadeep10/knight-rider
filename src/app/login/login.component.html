@@ -5,6 +5,7 @@
         
         <form name="login-form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
             <p>Login to continue.</p>
+            <alert></alert>
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                 <input type="text" name="username" [(ngModel)]="model.username" #username="ngModel" required placeholder="Username"/>
                 <div *ngIf="f.submitted && !username.valid" class="error">Username is required</div>
