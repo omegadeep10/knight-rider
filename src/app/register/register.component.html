@@ -1,3 +1,50 @@
-<p>
-  register works!
-</p>
+<div class="login-container">
+    <div class="login-page">
+        <h1>Register Now</h1>
+        <p class="subtitle">Please note that registration is currently limited to MGA students only.</p>
+        
+        <form name="register-form" [formGroup]="form.getForm()" (ngSubmit)="form.isValid() && submit()" novalidate>
+            <alert></alert>
+            
+            <div class="control-group">
+              <p>What's your name?</p>
+              <div class="form-group">
+                  <input type="text" name="firstName" formControlName="firstName" placeholder="First Name"/>
+                  <div *ngIf="form.hasError('firstName')" class="error">First name is required</div>
+              </div>
+              <div class="form-group">
+                  <input type="text" name="lastName" formControlName="lastName" placeholder="Last Name"/>
+                  <div *ngIf="form.hasError('lastName')" class="error">Last name is required</div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <p>How can we contact you?</p>
+              <div class="form-group">
+                  <input type="email" name="username" formControlName="username" placeholder="Email"/>
+                  <div *ngIf="form.hasError('username')" class="error">{{ form.getError('username') }}</div>
+              </div>
+              <div class="form-group">
+                  <input type="text" name="phone" formControlName="phone" placeholder="Phone"/>
+                  <div *ngIf="form.hasError('phone')" class="error">{{ form.getError('phone') }}</div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <p>Pick a secure password.</p>
+              <div class="form-group">
+                  <input type="password" name="password" formControlName="password" placeholder="Password"/>
+                  <div *ngIf="form.hasError('password')" class="error">{{ form.getError('password') }}</div>
+              </div>
+              <div class="form-group">
+                  <input type="password" name="confirmPassword" formControlName="confirmPassword" placeholder="confirmPassword"/>
+                  <div *ngIf="form.hasError('confirmPassword')" class="error">{{ form.getError('confirmPassword') }}</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <button [disabled]="loading">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

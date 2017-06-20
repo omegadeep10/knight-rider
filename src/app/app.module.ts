@@ -1,14 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AlertComponent } from './_directives/alert.component';
+import { AlertComponent } from './_directives/alert/alert.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { AlertService } from './_services/alert.service';
 import { AuthenticationService } from './_services/authentication.service';
+import { UserService } from './_services/user.service';
+import { EqualValidator } from './_directives/equal-validator.directive';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -18,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
   declarations: [
     AppComponent,
     AlertComponent,
+    EqualValidator,
     HomeComponent,
     LoginComponent,
     RegisterComponent
@@ -25,13 +28,15 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule
   ],
   providers: [
     AuthGuard,
     AlertService,
-    AuthenticationService
+    AuthenticationService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
