@@ -9,7 +9,7 @@ import { AlertService } from '../../_services/alert.service';
     styleUrls: ['alert.component.sass']
 })
 
-export class AlertComponent {
+export class AlertComponent implements OnInit {
     message: any;
 
     constructor(private alertService: AlertService) { }
