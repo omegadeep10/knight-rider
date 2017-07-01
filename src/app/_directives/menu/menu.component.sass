@@ -1,0 +1,152 @@
+@import 'variables'
+@import 'media-queries'
+
+.menu-container
+    border-bottom: 1px solid #dbdbdb
+
+.content-container
+    max-width: 1280px
+    margin: 0 auto
+    height: 100px
+    padding: 0 50px
+
+    +tablet
+        height: 80px
+        padding: 0 40px
+
+.mobile-menu-container
+    display: none
+    
+    +tablet
+        display: block
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background-color: rgba(0, 0, 0, .45)
+    
+    .close-menu
+        margin-bottom: 20px
+        display: block
+
+        &:hover
+            color: red
+    
+    .mobile-menu
+        display: block
+        height: 100vh
+        float: right
+        background-color: white
+        z-index: 5
+        opacity: 1
+        padding: 23px 20px 20px 30px
+        width: 200px
+
+        a
+            display: block
+            font-family: $f
+            font-size: 18px
+            padding: 10px 0
+            color: #757575
+
+            &:hover
+                color: $c-link
+
+
+h1
+    font-family: $f
+    font-size: 20px
+    font-weight: 500
+    color: $c-main
+    position: relative
+    top: 37px
+
+    +tablet
+        top: 27px
+
+nav
+    float: right
+    position: relative
+    padding: 20px 10px
+
+    +tablet
+        bottom: 10px
+        position: static //reset position relative so mobile nav can expand to fill screen
+
+    &:hover
+        cursor: pointer
+
+        .dropdown
+            display: block
+            visibility: visible
+            opacity: 1
+            top: 55px
+
+            +tablet
+                display: none
+        
+        p:after
+            border-top: none
+            border-bottom: 8px solid #757575
+    
+    .open-menu, .close-menu
+        display: none
+        font-size: 24px
+        color: #757575
+
+        +tablet
+            display: block
+    
+    .open-menu
+        position: relative
+        bottom: 11px
+
+    p
+        font-family: $f
+        font-size: 16px
+        color: #757575
+        font-weight: 500
+        margin-left: 15px
+
+        +tablet
+            display: none
+
+        &:after
+            content: ""
+            display: inline-block
+            position: relative
+            transition: all .2s ease
+            bottom: 1px
+            width: 0 
+            height: 0
+            border-left: 6px solid transparent
+            border-right: 6px solid transparent         
+            border-top: 8px solid #757575
+            margin-left: 15px
+    
+    .dropdown
+        visibility: hidden
+        transition: all .3s ease
+        position: absolute
+        top: 35px
+        width: 130px
+        background-color: white
+        border: 1px solid #dbdbdb
+        padding: 14px 20px
+        border-radius: 10px
+        right: 0
+        opacity: 0
+
+        +tablet
+            display: none
+
+        a
+            display: block
+            font-family: $f
+            font-size: 15px
+            padding: 13px 0
+            color: #757575
+
+            &:hover
+                color: $c-link
