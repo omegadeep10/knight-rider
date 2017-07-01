@@ -26,12 +26,8 @@
         bottom: 0
         background-color: rgba(0, 0, 0, .45)
     
-    .close-menu
-        margin-bottom: 20px
-        display: block
-
-        &:hover
-            color: red
+    &.close
+        display: none
     
     .mobile-menu
         display: block
@@ -42,6 +38,12 @@
         opacity: 1
         padding: 23px 20px 20px 30px
         width: 200px
+        position: relative
+        right: -200px
+        transition: all .1s ease
+
+        &.open
+            right: 0
 
         a
             display: block
@@ -63,7 +65,7 @@ h1
     top: 37px
 
     +tablet
-        top: 27px
+        top: 30px
 
 nav
     float: right
