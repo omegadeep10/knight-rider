@@ -18,6 +18,11 @@ h2
     margin-top: 60px
     margin-bottom: 40px
 
+    +tablet
+        margin-top: 40px
+        margin-bottom: 25px
+        font-size: 20px
+
 .trip-card
     font-family: $f
     border: 1px solid #dbdbdb
@@ -28,12 +33,18 @@ h2
     transition: all .2s ease
     margin-right: 30px
 
+    +large-phone
+        display: block
+        width: auto
+        margin-right: 0
+        padding-bottom: 0
+
     &:hover
-        border: 1px solid $c-main
+        border: 1px solid $c-link
         cursor: pointer
 
         h3
-            border-bottom: 1px solid $c-main
+            border-bottom: 1px solid $c-link
 
     h3
         font-weight: 400
@@ -42,6 +53,9 @@ h2
         border-bottom: 1px solid #dbdbdb
         padding: 0 24px 20px 24px
         transition: all .2s ease
+
+        +tablet
+            font-size: 16px
     
     .arrow 
         color: $c-main
@@ -51,22 +65,20 @@ h2
     padding: 0 24px
     margin-top: 15px
 
+    +large-phone
+        display: none
+
     img
         width: 60px
         float: left
-    
-    .name
-        float: left
-        margin-left: 16px
-    
+        margin-right: 16px
+
     .car
-        float: left
-        margin-left: 16px
         margin-top: 8px
         font-size: 12px
         color: #787878
 
-.seats
+.seats, .messages
     display: inline-block
     background-color: $c-main
     margin-left: 24px
@@ -75,6 +87,15 @@ h2
     padding: 20px 20px 10px 10px
     border-radius: 10px
     transition: all .2s ease
+
+    +large-phone
+        width: 50%
+        margin-left: 0
+        float: left
+        border-radius: 0 0 0 10px
+        padding-left: 15px
+        padding-bottom: 15px
+        margin-top: 10px
 
     .available-seats
         font-weight: 500
@@ -86,6 +107,17 @@ h2
         margin-top: 5px
         font-size: 12px
         color: #e0e0e0
+
+.messages
+    margin-left: 12px
+    background-color: $c-accent
+
+    +large-phone
+        margin-left: 0
+        border-radius: 0 0 10px 0
+
+    p
+        color: white
 
 
 .trip-info
@@ -127,3 +159,43 @@ h2
     .when
         font-size: 11px
         color: #878787
+
+.bottom-content-bar
+    background-color: $c-main
+    position: fixed
+    bottom: 0
+    left: 0
+    right: 0
+    height: 150px
+
+    +tablet
+        height: 100px
+
+    .content-container
+        max-width: 1280px
+        margin: 0 auto
+        padding: 0 50px
+
+        +tablet
+            padding: 0 40px
+    
+    .button
+        font-family: $f
+        font-weight: 500
+        font-size: 18px
+        color: white
+        background-color: $c-accent
+        padding: 20px 24px
+        border-radius: 10px
+        display: inline-block
+        margin-top: 45px
+        margin-right: 20px
+
+        +tablet
+            margin-top: 28px
+            margin-right: 14px
+            padding: 15px 20px
+            font-size: 16px
+
+        &:hover
+            background-color: $c-link

@@ -2,7 +2,7 @@
 
 <div class="home">
     <h2>Your Rides</h2>
-    <div *ngFor="let trip of trips" class="trip-card">
+    <div *ngFor="let trip of trips" class="trip-card cf" [routerLink]="['/trips/' + trip.id]">
         <h3>{{ trip.origin }} <span class="arrow">➔</span> {{ trip.destination }}</h3>
         <div class="trip-info">
             <div class="origin">
@@ -25,6 +25,17 @@
             <p class="available-seats">{{ trip.availableSeats | number:'2.0-0' }}</p>
             <p>Seats</p>
         </div>
+
+        <div class="messages">
+            <p class="available-seats">{{ trip.availableSeats | number:'2.0-0' }}</p>
+            <p>Messages</p>
+        </div>
     </div>
 
+    <div class="bottom-content-bar">
+        <div class="content-container">
+            <a [routerLink]="['/search']" class="button">Find Ride</a>
+            <a [routerLink]="['/new-ride']" class="button">Create Ride</a>
+        </div>
+    </div>
 </div>
