@@ -2,7 +2,7 @@
 
 <div class="home">
     <h2>Your Rides</h2>
-    <div *ngFor="let trip of trips" class="trip-card cf" [routerLink]="['/trips/' + trip.id]">
+    <div *ngFor="let trip of trips" class="trip-card cf" [routerLink]="['/trip', trip.id]">
         <h3>{{ trip.origin }} <span class="arrow">➔</span> {{ trip.destination }}</h3>
         <div class="trip-info">
             <div class="origin">

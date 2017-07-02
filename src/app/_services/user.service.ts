@@ -73,6 +73,35 @@ export class UserService {
         });
     }
 
+    getTrip(tripId: number) {
+        return this.http.get(this._baseURL + '/trips/' + tripId, this.jwt()).map((response: Response) => {
+            //variable to store trip data
+            let tripData = response.json();
+
+            let passengers_temp: Passenger[] = [];
+            for (let passenger of tripData.passengers) {
+                passengers_temp.push(new Passenger({
+                    joinDate: new Date(passenger.joinDate),
+                    userId: passenger.userId,
+                    tripId: passenger.tripId
+                }));
+            }
+
+            let trip: Trip = new Trip({
+                id: tripData.id,
+                availableSeats: tripData.availableSeats,
+                origin: tripData.origin,
+                destination: tripData.destination,
+                meetingLocation: tripData.meetingLocation,
+                departureTime: new Date(tripData.departureTime),
+                passengers: passengers_temp
+            });
+            
+
+            return trip;
+        });
+    }
+
     // private helper methods
     private getUsername() {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
