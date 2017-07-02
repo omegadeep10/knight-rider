@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../_models/user';
+import { DatePipe } from '@angular/common';
+import { User, Trip } from '../_models/user';
 
 import { UserService } from '../_services/user.service';
 import { AlertService } from '../_services/alert.service';
@@ -12,12 +13,12 @@ import { AlertService } from '../_services/alert.service';
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
-  user: User;
+  trips: Trip[] = [];
 
   constructor(private userService: UserService, private alertService: AlertService) { 
-    userService.getUser().subscribe(
+    userService.getUserTrips().subscribe(
       data => {
-        this.user = data;
+        this.trips = data;
       },
       error => {
         this.alertService.error(error);

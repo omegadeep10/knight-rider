@@ -1,1 +1,30 @@
 <menu-bar></menu-bar>
+
+<div class="home">
+    <h2>Your Rides</h2>
+    <div *ngFor="let trip of trips" class="trip-card">
+        <h3>{{ trip.origin }} <span class="arrow">➔</span> {{ trip.destination }}</h3>
+        <div class="trip-info">
+            <div class="origin">
+                <p class="title">{{ trip.meetingLocation }} </p>
+                <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
+            </div>
+            <div class="destination">
+                <p class="title">{{ trip.destination }}</p>
+                <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
+            </div>
+        </div>
+
+        <div class="driver cf">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="Your Driver">
+            <p class="name">Benjamin Franklin</p>
+            <p class="car">Chevy Malibu 2012</p>
+        </div>
+
+        <div class="seats">
+            <p class="available-seats">{{ trip.availableSeats | number:'2.0-0' }}</p>
+            <p>Seats</p>
+        </div>
+    </div>
+
+</div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
 
-import { User } from '../_models/user';
+import { User, Trip, Passenger } from '../_models/user';
 
 @Injectable()
 export class UserService {
@@ -32,6 +32,44 @@ export class UserService {
                     return usr;
                 }
             }
+        });
+    }
+
+    getUserTrips() {
+        let email = this.getUsername();
+        return this.http.get(this._baseURL + '/users', this.jwt()).map((response: Response) => {
+            //variable to store user's trips
+            let trips: Trip[] = [];
+            
+            for (let user of response.json()) {
+                if (user.username === email) {
+                    for (let trip of user.trips) {
+
+                        //Create an array of passengers for each trip
+                        let passengers_temp: Passenger[] = [];
+                        for (let passenger of trip.passengers) {
+                            passengers_temp.push(new Passenger({
+                                joinDate: new Date(passenger.joinDate),
+                                userId: passenger.userId,
+                                tripId: passenger.tripId
+                            }));
+                        }
+                    
+                        //add to trips array
+                        trips.push(new Trip({
+                            id: trip.id,
+                            availableSeats: trip.availableSeats,
+                            origin: trip.origin,
+                            destination: trip.destination,
+                            meetingLocation: trip.meetingLocation,
+                            departureTime: new Date(trip.departureTime),
+                            passengers: passengers_temp
+                        }));
+                    }
+                }
+            }
+
+            return trips;
         });
     }
 

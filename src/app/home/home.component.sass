@@ -1,0 +1,129 @@
+@import 'variables'
+@import 'media-queries'
+
+.home
+    max-width: 1280px
+    margin: 0 auto
+    padding: 0 50px
+
+    +tablet
+        padding: 0 40px
+
+
+h2
+    font-family: $f
+    font-size: 22px
+    font-weight: 500
+    color: #3e3e3e
+    margin-top: 60px
+    margin-bottom: 40px
+
+.trip-card
+    font-family: $f
+    border: 1px solid #dbdbdb
+    display: inline-block
+    padding: 20px 0
+    border-radius: 10px
+    width: 280px
+    transition: all .2s ease
+    margin-right: 30px
+
+    &:hover
+        border: 1px solid $c-main
+        cursor: pointer
+
+        h3
+            border-bottom: 1px solid $c-main
+
+    h3
+        font-weight: 400
+        font-size: 18px
+        color: #3e3e3e
+        border-bottom: 1px solid #dbdbdb
+        padding: 0 24px 20px 24px
+        transition: all .2s ease
+    
+    .arrow 
+        color: $c-main
+        margin: 0 8px
+
+.driver
+    padding: 0 24px
+    margin-top: 15px
+
+    img
+        width: 60px
+        float: left
+    
+    .name
+        float: left
+        margin-left: 16px
+    
+    .car
+        float: left
+        margin-left: 16px
+        margin-top: 8px
+        font-size: 12px
+        color: #787878
+
+.seats
+    display: inline-block
+    background-color: $c-main
+    margin-left: 24px
+    margin-top: 24px
+    color: white
+    padding: 20px 20px 10px 10px
+    border-radius: 10px
+    transition: all .2s ease
+
+    .available-seats
+        font-weight: 500
+        font-size: 18px
+        margin-top: 0
+        color: white
+    
+    p
+        margin-top: 5px
+        font-size: 12px
+        color: #e0e0e0
+
+
+.trip-info
+    margin-top: 10px
+    padding: 20px 24px 20px 47px
+    position: relative
+
+    &:after
+        content: ''
+        display: inline-block
+        position: absolute
+        top: 37px
+        width: 2px
+        background-color: $c-main
+        bottom: 51px
+        left: 25px
+
+
+    .origin
+        margin-bottom: 20px
+    
+    .origin, .destination
+        position: relative
+
+        &:after
+            content: '⚬'
+            display: inline-block
+            position: absolute
+            left: -25px
+            top: -2px
+            color: $c-main
+            font-size: 17px
+
+    .title
+        font-size: 14px
+        color: #2d2d2d
+        margin-bottom: 5px
+    
+    .when
+        font-size: 11px
+        color: #878787
