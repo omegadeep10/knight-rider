@@ -1,0 +1,266 @@
+@import 'variables'
+@import 'media-queries'
+
+.trip
+    max-width: 1280px
+    margin: 0 auto
+    padding: 0 50px 250px 50px
+
+    +tablet
+        padding: 0 40px 180px 40px
+
+
+h2
+    font-family: $f
+    font-size: 22px
+    font-weight: 500
+    color: #3e3e3e
+    margin-top: 60px
+    margin-bottom: 40px
+
+    +tablet
+        margin-top: 40px
+        margin-bottom: 25px
+        font-size: 20px
+    
+    .arrow 
+        color: $c-main
+        margin: 0 8px
+
+
+.label
+    font-family: $f
+    font-size: 12px
+    color: #a8a8a8
+
+    +tablet
+        font-size: 10px
+
+.trip-info-container
+    display: inline-block
+    min-width: 300px
+
+    +tablet
+        min-width: auto
+
+.trip-info
+    padding: 0 0 0 25px
+    position: relative
+
+    &:after
+        content: ''
+        display: inline-block
+        position: absolute
+        top: 45px
+        width: 2px
+        background-color: $c-main
+        bottom: 40px
+        left: 3px
+
+    .origin
+        margin-bottom: 50px
+
+        +tablet
+            margin-bottom: 30px
+    
+    .origin, .destination
+        position: relative
+
+        &:after
+            content: '⚬'
+            display: inline-block
+            position: absolute
+            left: -25px
+            top: 25px
+            color: $c-main
+            font-size: 20px
+
+            +tablet
+                top: 22px
+
+    .title
+        font-size: 18px
+        color: #2d2d2d
+        margin-top: 14px
+        margin-bottom: 10px
+
+        +tablet
+            font-size: 16px
+    
+    .when
+        font-size: 13px
+
+        +tablet
+            font-size: 11px
+
+.driver-container
+    display: inline-block
+    min-width: 400px
+    vertical-align: top
+    padding: 0 24px
+
+    +large-tablet
+        min-width: 300px
+    
+    +tablet
+        display: block
+        margin-top: 30px
+        min-width: auto
+        padding: 0
+
+    .label
+        margin-bottom: 18px
+
+        +tablet
+            margin-bottom: 10px
+
+    .driver
+
+        .name
+            font-size: 18px
+
+            +tablet
+                font-size: 16px
+
+        img
+            width: 110px
+            float: left
+            margin-right: 22px
+
+            +tablet
+                width: 90px
+                margin-right: 16px
+
+        .car
+            margin-top: 14px
+            font-size: 12px
+            color: #787878
+
+            +tablet
+                font-size: 12px
+                margin-top: 10px
+    
+
+    .passengers
+        margin-top: 45px
+
+    img
+        width: 65px
+
+        +tablet
+            width: 50px
+    
+    .passenger
+        position: relative
+        display: inline-block
+        cursor: pointer
+
+        &:hover .passenger-tooltip
+            display: block
+
+            +tablet
+                display: none
+
+    .passenger-tooltip
+        display: none
+        position: absolute
+        font-size: 12px
+        background-color: $c-accent
+        padding: 14px 10px
+        color: white
+        font-size: 14px
+        font-family: $f
+        border-radius: 5px
+        bottom: -45px
+        left: 0
+        width: 150px
+
+        &:after
+            content: ""
+            position: absolute
+            width: 0
+            height: 0
+            border-left: 10px solid transparent
+            border-right: 10px solid transparent
+            border-bottom: 10px solid $c-accent
+            left: 20px
+            top: -10px
+    
+    .seats
+        display: inline-block
+        background-color: $c-main
+        margin-left: 15px
+        color: white
+        padding: 20px 20px 10px 10px
+        border-radius: 10px
+        transition: all .2s ease
+        vertical-align: top
+
+        +tablet
+            padding: 10px
+
+        .available-seats
+            font-weight: 500
+            font-weight: bold
+            font-size: 18px
+            margin-top: 0
+            color: white
+
+            +tablet
+                margin-top: 3px
+                font-size: 16px
+        
+        p
+            margin-top: 5px
+            font-size: 12px
+            color: #e0e0e0
+
+            +tablet
+                margin-top: 2px
+                font-size: 10px
+
+
+.bottom-content-bar
+    background-color: $c-main
+    position: fixed
+    bottom: 0
+    left: 0
+    right: 0
+    height: 150px
+
+    +tablet
+        height: 100px
+
+    .content-container
+        max-width: 1280px
+        margin: 0 auto
+        padding: 0 50px
+
+        +tablet
+            padding: 0 40px
+    
+    .button
+        font-family: $f
+        font-weight: 500
+        font-size: 18px
+        color: white
+        background-color: $c-accent
+        padding: 20px 24px
+        border-radius: 10px
+        display: inline-block
+        margin-top: 45px
+        margin-right: 20px
+
+        +tablet
+            margin-top: 28px
+            margin-right: 14px
+            padding: 15px 20px
+            font-size: 16px
+        
+        +large-phone
+            padding: 13px 15px
+            margin-top: 30px
+            margin-right: 10px
+
+        &:hover
+            background-color: $c-link

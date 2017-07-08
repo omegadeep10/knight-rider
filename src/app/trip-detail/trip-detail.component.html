@@ -25,19 +25,27 @@
       <p class="name">Benjamin Franklin</p>
       <p class="car">Chevy Malibu 2012</p>
     </div>
-  </div>
 
-  <div class="passengers">
-    <div *ngFor="let passenger of trip.passengers" class="passenger">
-      <img src="https://s3.amazonaws.com/uifaces/faces/twitter/k/128.jpg" alt="Passenger Name here">
-      <div class="passenger-tooltip">
-        Passenger name
+    <div class="passengers">
+      <p class="label">Passengers</p>
+      <div *ngFor="let passenger of trip.passengers" class="passenger">
+        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/k/128.jpg" alt="Passenger Name here">
+        <div class="passenger-tooltip">
+          Gregory Jones
+        </div>
+      </div>
+
+      <div class="seats">
+        <p class="available-seats">{{ trip.availableSeats | number:'2.0-0' }}</p>
+        <p>Seats Available</p>
       </div>
     </div>
-
-    <div class="seats">
-      <p class="available-seats">{{ trip.availableSeats | number:'2.0-0' }}</p>
-      <p>Seats Available</p>
-    </div>
   </div>
+
+  <div class="bottom-content-bar">
+      <div class="content-container">
+          <a [routerLink]="['/search']" class="button">Cancel Reservation</a>
+      </div>
+  </div>
+
 </div>
