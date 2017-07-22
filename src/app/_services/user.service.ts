@@ -15,57 +15,59 @@ export class UserService {
     }
 
     getUser() {
+        let user_id = this.getUserId();
         let email = this.getUsername();
-        return this.http.get(this._baseURL + '/users', this.jwt()).map((response: Response) => {
+        return this.http.get(this._baseURL + '/users/' + user_id, this.jwt()).map((response: Response) => {
             let usr = new User();
-            for (let user of response.json()) {
-                if (user.username === email) {
-                    usr.address = user.address;
-                    usr.firstName = user.firstName;
-                    usr.lastName = user.lastName;
-                    usr.id = user.id;
-                    usr.phone = user.phone;
-                    usr.zip = user.zip;
-                    usr.username = user.username;
-                    usr.password = null;
+            let user = response.json();
 
-                    return usr;
-                }
+            if (user.username === email) {
+                usr.address = user.address;
+                usr.firstName = user.firstName;
+                usr.lastName = user.lastName;
+                usr.id = user.id;
+                usr.phone = user.phone;
+                usr.zip = user.zip;
+                usr.email = user.username;
+                usr.password = null;
+
+                return usr;
             }
         });
     }
 
     getUserTrips() {
         let email = this.getUsername();
-        return this.http.get(this._baseURL + '/users', this.jwt()).map((response: Response) => {
-            //variable to store user's trips
-            let trips: Trip[] = [];
-            
-            for (let user of response.json()) {
-                if (user.username === email) {
-                    for (let trip of user.trips) {
+        let user_id = this.getUserId();
 
-                        //Create an array of passengers for each trip
-                        let passengers_temp: Passenger[] = [];
-                        for (let passenger of trip.passengers) {
-                            passengers_temp.push(new Passenger({
-                                joinDate: new Date(passenger.joinDate),
-                                userId: passenger.userId,
-                                tripId: passenger.tripId
-                            }));
-                        }
-                    
-                        //add to trips array
-                        trips.push(new Trip({
-                            id: trip.id,
-                            availableSeats: trip.availableSeats,
-                            origin: trip.origin,
-                            destination: trip.destination,
-                            meetingLocation: trip.meetingLocation,
-                            departureTime: new Date(trip.departureTime),
-                            passengers: passengers_temp
+        return this.http.get(this._baseURL + '/users/' + user_id, this.jwt()).map((response: Response) => {
+            //variable to store user's trips
+            let trips: Trip[] = [];  
+            let user = response.json();
+
+            if (user.username === email) {
+                for (let trip of user.trips) {
+
+                    //Create an array of passengers for each trip
+                    let passengers_temp: Passenger[] = [];
+                    for (let passenger of trip.passengers) {
+                        passengers_temp.push(new Passenger({
+                            joinDate: new Date(passenger.joinDate),
+                            userId: passenger.userId,
+                            tripId: passenger.tripId
                         }));
                     }
+                
+                    //add to trips array
+                    trips.push(new Trip({
+                        id: trip.id,
+                        availableSeats: trip.availableSeats,
+                        origin: trip.origin,
+                        destination: trip.destination,
+                        meetingLocation: trip.meetingLocation,
+                        departureTime: new Date(trip.departureTime),
+                        passengers: passengers_temp
+                    }));
                 }
             }
 
@@ -107,6 +109,15 @@ export class UserService {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
             return this.decode_jwt(currentUser.token).sub;
+        } else {
+            return new Error('User is not logged in.');
+        }
+    }
+
+    private getUserId() {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.user_id) {
+            return currentUser.user_id;
         } else {
             return new Error('User is not logged in.');
         }

@@ -26,10 +26,10 @@ export class RegisterComponent implements OnInit {
     this.form = new ValidationManager({
       'firstName': 'required',
       'lastName': 'required',
-      'username': 'required|email',
+      'email': 'required|email',
       'phone': 'digits',
       'password': 'required|minLength:4',
-      'confirmPassword': 'required|equalTo:password'
+      'matchingPassword': 'required|equalTo:password'
     });
   }
 

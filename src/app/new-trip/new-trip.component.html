@@ -1,0 +1,54 @@
+<menu-bar></menu-bar>
+
+<div class="home">
+  
+  <form name="new-trip-form" [formGroup]="form.getForm()" (ngSubmit)="form.isValid() && submit()" novalidate>
+    
+    <section id="1" [hidden]="section !== 1">
+      <div class="origin">
+        <h2>Where does your trip start?</h2>
+        <div class="form-group">
+          <label for="origin">Origin</label>
+          <input type="text" name="origin" formControlName="origin" placeholder="Macon">
+          <div *ngIf="form.hasError('origin')" class="error">Origin is required</div>
+        </div>
+        <div class="form-group">
+          <label for="meetingLocation">Pickup Location</label>
+          <input type="text" name="meetingLocation" formControlName="meetingLocation" placeholder="Macon">
+          <div *ngIf="form.hasError('meetingLocation')" class="error">Pickup location is required</div>
+        </div>
+      </div>
+
+      <!--
+      <div class="destination">
+        AIzaSyDwkXmEz-xfnj4fmrNjq6R9z9nzEaZr7FM 
+        <h2>Where does your trip end?</h2>
+        <div class="form-group">
+          <label for="destination">Destination</label>
+          <input type="text" name="destination" formControlName="destination" placeholder="Warner Robins">
+          <div *ngIf="form.hasError('destination')" class="error">destination is required</div>
+        </div>
+        <div class="form-group">
+          <label for="dropoffLocation">Dropoff Location</label>
+          <input type="text" name="dropoffLocation" formControlName="dropoffLocation" placeholder="Macon">
+          <div *ngIf="form.hasError('dropoffLocation')" class="error">Dropoff location is required</div>
+        </div>
+      </div>-->
+    </section>
+
+    <section id="2" [hidden]="section !== 2">
+      <h2>SECTION 2</h2>
+    </section>
+
+    <section id="3" [hidden]="section !== 3">
+      <h2>SECTION 3</h2>
+    </section>
+  </form>  
+
+  <div class="bottom-content-bar">
+    <div class="content-container">
+      <button [disabled]="section > 2" class="button" (click)="nextSection()">Next</button>
+      <button [disabled]="!(section > 1)" class="button" (click)="prevSection()">Prev</button>
+    </div>
+  </div>
+</div>
