@@ -3,6 +3,7 @@
 <div class="home">
   
   <form name="new-trip-form" [formGroup]="form.getForm()" (ngSubmit)="form.isValid() && submit()" novalidate>
+    <section>
       <div class="origin">
         <h2>Where does your trip start?</h2>
         <div class="saved_addresses">
@@ -16,18 +17,37 @@
         </div>
       </div>
 
-      <div class="origin">
+      <div class="origin-date">
+        <h2>When are you leaving?</h2>
+        <div class="form-group">
+          <label for="origin-date">Origin Date</label>
+          <p-calendar formControlName="originDate" showTime="showTime" hourFormat="12" [minDate]="TodaysDate()" readonlyInput="readonlyInput"></p-calendar>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="destination">
         <h2>Where does your trip end?</h2>
         <div class="saved_addresses">
           <span *ngFor="let ad of saved_addresses" (click)="form.setValue('destination', ad.address)">{{ ad.name }}</span>
         </div>
         <div class="form-group">
-          <label for="origin">Destination</label>
+          <label for="destination">Destination</label>
           <input type="text" name="destination" (input)="resetDestinationError()" formControlName="destination" placeholder="Enter an address">
           <div *ngIf="form.hasError('destination')" class="error">Destination address is required</div>
           <div *ngIf="destinationError" class="error">This address is unrecognized or invalid.</div>
         </div>
       </div>
+
+      <div class="destination-date">
+        <h2>When are you leaving?</h2>
+        <div class="form-group">
+          <label for="destination-date">Destination Date</label>
+          <p-calendar formControlName="destinationDate" showTime="showTime" hourFormat="12" [minDate]="TodaysDate()" readonlyInput="readonlyInput"></p-calendar>
+        </div>
+      </div>
+    </section>
   </form>  
 
   <div class="bottom-content-bar">

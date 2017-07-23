@@ -52,7 +52,9 @@ export class NewTripComponent implements OnInit {
   ngOnInit() {
     this.form = new ValidationManager({
       'origin': 'required',
-      'destination': 'required'
+      'destination': 'required',
+      'originDate': 'required',
+      'destinationDate': 'required'
     });
   }
 
@@ -95,6 +97,10 @@ export class NewTripComponent implements OnInit {
 
   resetDestinationError() {
     this.destinationError = false;
+  }
+
+  TodaysDate() {
+    return new Date();
   }
 
 }
