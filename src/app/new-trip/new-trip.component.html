@@ -7,33 +7,30 @@
     <section id="1" [hidden]="section !== 1">
       <div class="origin">
         <h2>Where does your trip start?</h2>
-        <div class="form-group">
-          <label for="origin">Origin</label>
-          <input type="text" name="origin" formControlName="origin" placeholder="Macon">
-          <div *ngIf="form.hasError('origin')" class="error">Origin is required</div>
+        <div class="saved_addresses">
+          <span *ngFor="let ad of saved_addresses" (click)="form.setValue('origin', ad.address)">{{ ad.name }}</span>
         </div>
         <div class="form-group">
-          <label for="meetingLocation">Pickup Location</label>
-          <input type="text" name="meetingLocation" formControlName="meetingLocation" placeholder="Macon">
-          <div *ngIf="form.hasError('meetingLocation')" class="error">Pickup location is required</div>
+          <label for="origin">Origin</label>
+          <input type="text" name="origin" formControlName="origin" placeholder="Enter an address">
+          <div *ngIf="form.hasError('origin')" class="error">Origin address is required</div>
+          <div *ngIf="originError" class="error">This address is unrecognized or invalid.</div>
         </div>
       </div>
 
-      <!--
-      <div class="destination">
-        AIzaSyDwkXmEz-xfnj4fmrNjq6R9z9nzEaZr7FM 
+      <div class="origin">
         <h2>Where does your trip end?</h2>
-        <div class="form-group">
-          <label for="destination">Destination</label>
-          <input type="text" name="destination" formControlName="destination" placeholder="Warner Robins">
-          <div *ngIf="form.hasError('destination')" class="error">destination is required</div>
+        <div class="saved_addresses">
+          <span *ngFor="let ad of saved_addresses" (click)="form.setValue('destination', ad.address)">{{ ad.name }}</span>
         </div>
         <div class="form-group">
-          <label for="dropoffLocation">Dropoff Location</label>
-          <input type="text" name="dropoffLocation" formControlName="dropoffLocation" placeholder="Macon">
-          <div *ngIf="form.hasError('dropoffLocation')" class="error">Dropoff location is required</div>
+          <label for="origin">Destination</label>
+          <input type="text" name="destination" formControlName="destination" placeholder="Enter an address">
+          <div *ngIf="form.hasError('destination')" class="error">Destination address is required</div>
         </div>
-      </div>-->
+      </div>
+
+      <button type="submit">Submit</button>
     </section>
 
     <section id="2" [hidden]="section !== 2">
