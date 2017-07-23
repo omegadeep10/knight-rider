@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
-
 import { User, Trip, Passenger } from '../_models/user';
+declare var google: any;
 
 @Injectable()
 export class UserService {
     _baseURL: string = 'http://168.16.222.103:8080/knightrider';
+    geocoder = new google.maps.Geocoder();
+
     constructor(private http: Http) { }
 
 
@@ -101,6 +103,18 @@ export class UserService {
             
 
             return trip;
+        });
+    }
+
+    validateAddress(address: string) {
+        return new Promise((resolve, reject) => {
+            this.geocoder.geocode({ 'address': address }, function(results, status) {
+                if (status.toString() === "ZERO_RESULTS") {
+                    reject(address);
+                } else {
+                    resolve(results);
+                }
+            });
         });
     }
 

@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { ValidationManager } from 'ng2-validation-manager';
 import { Trip } from '../_models/user';
-import 'rxjs/add/operator/map';
-import * as async from 'async';
 
 import { AlertService } from '../_services/alert.service';
 import { UserService } from '../_services/user.service';
 
-declare var google: any;
 
 @Component({
   selector: 'app-new-trip',
@@ -44,15 +40,13 @@ export class NewTripComponent implements OnInit {
   loading = false;
   section = 1;
   trip: Trip;
-  geocoder;
   originError: Boolean = false;
   destinationError: Boolean = false;
 
   constructor(
     private router: Router,
     private userService: UserService,
-    private alertService: AlertService,
-    private http: Http
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -60,92 +54,47 @@ export class NewTripComponent implements OnInit {
       'origin': 'required',
       'destination': 'required'
     });
-
-    this.geocoder = new google.maps.Geocoder();
-
-    /*
-    let map = new google.maps.Map(document.getElementById("google-map"), {
-      center: new google.maps.LatLng(32.838131, -83.634705),
-      zoom: 10,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    let that = this;
-
-    map.addListener('click', function(e) {
-      for (marker of that.markers) {
-        marker.setMap(null);
-      }
-
-      var marker = new google.maps.Marker({
-        position: e.latLng,
-        map: map
-      });
-
-      marker.addListener('click', function() {
-        marker.setMap(null);
-      });
-
-      console.log(this);
-      that.markers.push(marker);
-    });*/
   }
 
   submit() {
     console.log("SUBMITTING");
-  }
+    let originAddress = this.form.getData().origin;
+    let destinationAddress = this.form.getData().destination;
 
-  areValidAddresses() {
-    let formData = this.form.getData();
-    let origin = formData.origin;
-    let destination = formData.destination;
-    let that = this;
-
-    async.parallel([
-        function(cb) {
-          that.geocoder.geocode({'address': origin}, function(results, status) {
-            if (status == "ZERO_RESULTS") {
-              that.originError = true;
-              cb('origin');
-            } else {
-              cb(null, results);
-            }
-          });
-        },
-        function(cb) {
-          that.geocoder.geocode({'address': destination}, function(results, status) {
-            if (status == "ZERO_RESULTS") {
-              that.destinationError = false;
-              cb('destination');
-            } else {
-              cb(null, results);
-            }
-          });
+    this.userService.validateAddress(originAddress)
+      .then((results) => {
+        console.log(results);
+        //update latLng for Trip
+      })
+      .then(() => { return this.userService.validateAddress(destinationAddress) })
+      .then((results) => {
+        console.log(results);
+        //update latLng for Trip
+      })
+      .catch((invalidAddress) => {
+        if (invalidAddress == originAddress) {
+          this.originError = true;
         }
-      ],
-      //callback function: results is an array of geocoder results
-      function(err, results) {
-        if (!err) {
-          console.log(results);
-          that.section += 1;
+        if (invalidAddress == destinationAddress) {
+          this.destinationError = true;
         }
-      }
-    );
+      });
   }
 
   nextSection() {
-    if (this.section == 1) {
-      if (this.form.isValid()) {
-        //the valid Addresses function will advance the section internally
-        this.areValidAddresses();
-      }
-    } else {
-      this.section += 1;
-    }
+    this.section += 1;
   }
 
   prevSection() {
     this.section -= 1;
+  }
+
+  resetOriginError() {
+    this.originError = false;
+  }
+
+  resetDestinationError() {
+    this.destinationError = false;
   }
 
 }
