@@ -8,6 +8,7 @@ export class User {
     address?: string;
     zip?: string;
     phone?: string;
+    cars: Car[];
 }
 
 export class Car {
@@ -45,8 +46,23 @@ export class Trip {
     meetingLocation: string;
     availableSeats: number;
     passengers: Passenger[];
+    messages: Message[];
+
+    //not reflected in API but I need these
+    originCity: string;
+    destCity: string;
 
     constructor(init?: Partial<Trip>) {
+        Object.assign(this, init);
+    }
+}
+
+export class Message {
+    tripId: number;
+    userId: number;
+    comment: string;
+
+    constructor(init?: Partial<Message>) {
         Object.assign(this, init);
     }
 }

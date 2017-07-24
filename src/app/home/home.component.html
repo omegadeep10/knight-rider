@@ -3,10 +3,10 @@
 <div class="home">
     <h2>Your Rides</h2>
     <div *ngFor="let trip of trips" class="trip-card cf" [routerLink]="['/trip', trip.id]">
-        <h3>{{ trip.origin }} <span class="arrow">➔</span> {{ trip.destination }}</h3>
+        <h3>{{ trip.originCity }} <span class="arrow">➔</span> {{ trip.destCity }}</h3>
         <div class="trip-info">
             <div class="origin">
-                <p class="title">{{ trip.meetingLocation }} </p>
+                <p class="title">{{ trip.origin }} </p>
                 <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
             </div>
             <div class="destination">
@@ -22,12 +22,12 @@
         </div>
 
         <div class="seats">
-            <p class="available-seats">{{ trip.availableSeats | number:'2.0-0' }}</p>
+            <p class="available-seats">{{ trip.availableSeats - trip.passengers.length | number:'2.0-0' }}</p>
             <p>Seats</p>
         </div>
 
         <div class="messages">
-            <p class="available-seats">{{ trip.availableSeats | number:'2.0-0' }}</p>
+            <p class="available-seats">{{ trip.messages.length | number:'2.0-0' }}</p>
             <p>Messages</p>
         </div>
     </div>

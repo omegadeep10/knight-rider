@@ -1,13 +1,13 @@
 <menu-bar></menu-bar>
 
 <div class="trip">
-  <h2>{{ trip.origin }} <span class="arrow">➔</span> {{ trip.destination }}</h2>
+  <h2>{{ trip.originCity }} <span class="arrow">➔</span> {{ trip.destCity }}</h2>
   
   <div class="trip-info-container">
     <div class="trip-info">
       <div class="origin">
           <p class="label">Pickup Location</p>
-          <p class="title">{{ trip.meetingLocation }} </p>
+          <p class="title">{{ trip.origin }} </p>
           <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
       </div>
       <div class="destination">
@@ -22,8 +22,8 @@
     <div class="driver cf">
       <p class="label">Driver</p>
       <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="Your Driver">
-      <p class="name">Benjamin Franklin</p>
-      <p class="car">Chevy Malibu 2012</p>
+      <p class="name">{{ driver.firstName }} {{ driver.lastName }}</p>
+      <p class="car">{{ driver?.cars[0].maker }} {{ driver?.cars[0].type }}</p>
     </div>
 
     <div class="passengers">

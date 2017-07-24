@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
-import { User, Trip, Passenger, Car } from '../_models/user';
+import { User, Trip, Passenger, Car, Message } from '../_models/user';
 declare var google: any;
 
 @Injectable()
@@ -55,25 +55,35 @@ export class UserService {
         });
     }
 
-    getUser() {
-        let user_id = this.getUserId();
-        let email = this.getUsername();
-        return this.http.get(this._baseURL + '/users/' + user_id, this.jwt()).map((response: Response) => {
+    getUser(user_id?) {
+        let uid = user_id || this.getUserId();
+
+        return this.http.get(this._baseURL + '/users/' + uid, this.jwt()).map((response: Response) => {
             let usr = new User();
             let user = response.json();
 
-            if (user.username === email) {
-                usr.address = user.address;
-                usr.firstName = user.firstName;
-                usr.lastName = user.lastName;
-                usr.id = user.id;
-                usr.phone = user.phone;
-                usr.zip = user.zip;
-                usr.email = user.username;
-                usr.password = null;
-
-                return usr;
+            let cars_temp: Car[] = [];
+            for (let car of user.cars) {
+                cars_temp.push(new Car({
+                    userId: car.userId,
+                    id: car.id,
+                    maker: car.maker,
+                    type: car.type,
+                    capacity: car.capacity
+                }));
             }
+
+            usr.address = user.address;
+            usr.firstName = user.firstName;
+            usr.lastName = user.lastName;
+            usr.id = user.id;
+            usr.phone = user.phone;
+            usr.zip = user.zip;
+            usr.email = user.username;
+            usr.password = null;
+            usr.cars = cars_temp;
+
+            return usr;
         });
     }
 
@@ -98,16 +108,32 @@ export class UserService {
                             tripId: passenger.tripId
                         }));
                     }
+
+                    //create array of messages for each trip
+                    let messages_temp: Message[] = [];
+                    for (let message of trip.messages) {
+                        messages_temp.push(new Message({
+                            tripId: message.tripId,
+                            userId: message.userId,
+                            comment: message.comment
+                        }));
+                    }
+
+                    let [originCity, destCity] = trip.meetingLocation.split('|');
                 
                     //add to trips array
                     trips.push(new Trip({
                         id: trip.id,
+                        userId: trip.userId,
                         availableSeats: trip.availableSeats,
                         origin: trip.origin,
                         destination: trip.destination,
                         meetingLocation: trip.meetingLocation,
                         departureTime: new Date(trip.departureTime),
-                        passengers: passengers_temp
+                        passengers: passengers_temp,
+                        messages: messages_temp,
+                        originCity: originCity,
+                        destCity: destCity
                     }));
                 }
             }
@@ -130,14 +156,30 @@ export class UserService {
                 }));
             }
 
+            //create array of messages for each trip
+            let messages_temp: Message[] = [];
+            for (let message of tripData.messages) {
+                messages_temp.push(new Message({
+                    tripId: message.tripId,
+                    userId: message.userId,
+                    comment: message.comment
+                }));
+            }
+
+            let [originCity, destCity] = tripData.meetingLocation.split('|');
+
             let trip: Trip = new Trip({
                 id: tripData.id,
+                userId: tripData.userId,
                 availableSeats: tripData.availableSeats,
                 origin: tripData.origin,
                 destination: tripData.destination,
                 meetingLocation: tripData.meetingLocation,
                 departureTime: new Date(tripData.departureTime),
-                passengers: passengers_temp
+                passengers: passengers_temp,
+                messages: messages_temp,
+                originCity: originCity,
+                destCity: destCity
             });
             
 

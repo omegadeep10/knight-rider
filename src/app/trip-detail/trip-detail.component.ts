@@ -14,6 +14,7 @@ import { AlertService } from '../_services/alert.service';
 export class TripDetailComponent implements OnInit {
 
   trip: Trip = new Trip();
+  driver: User = new User();
 
   constructor(private userService: UserService, private alertService: AlertService, private activateRoute: ActivatedRoute) { 
     activateRoute.params.subscribe((params: Params) => {
@@ -21,6 +22,15 @@ export class TripDetailComponent implements OnInit {
       userService.getTrip(tripId).subscribe(
         data => {
           this.trip = data;
+          
+          userService.getUser(data.userId).subscribe(
+            data => {
+              this.driver = data;
+            },
+            error => {
+              this.alertService.error(error);
+            }
+          )
         },
         error => {
           this.alertService.error(error);
