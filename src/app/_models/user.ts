@@ -10,6 +10,18 @@ export class User {
     phone?: string;
 }
 
+export class Car {
+    userId: number;
+    id: number;
+    maker: string;
+    type: string;
+    capacity: number;
+
+    constructor(init?: Partial<Car>) {
+        Object.assign(this, init);
+    }
+}
+
 export class Passenger {
     userId: number;
     tripId: number;
@@ -21,9 +33,14 @@ export class Passenger {
 }
 
 export class Trip {
+    userId: number;
     id: number;
     origin: string;
+    originLatitude: number;
+    originLongitude: number;
     destination: string;
+    destLatitude: number;
+    destLongitude: number;
     departureTime: Date;
     meetingLocation: string;
     availableSeats: number;

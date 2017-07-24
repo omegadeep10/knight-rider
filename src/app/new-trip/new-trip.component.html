@@ -1,58 +1,82 @@
 <menu-bar></menu-bar>
 
-<div class="home">
-  
+<div class="new-trip-container">
+
   <form name="new-trip-form" [formGroup]="form.getForm()" (ngSubmit)="form.isValid() && submit()" novalidate>
     <section>
-      <div class="origin">
-        <h2>Where does your trip start?</h2>
-        <div class="saved_addresses">
-          <span *ngFor="let ad of saved_addresses" (click)="form.setValue('origin', ad.address)">{{ ad.name }}</span>
-        </div>
-        <div class="form-group">
-          <label for="origin">Origin</label>
-          <input type="text" name="origin" (input)="resetOriginError()" formControlName="origin" placeholder="Enter an address">
-          <div *ngIf="form.hasError('origin')" class="error">Origin address is required</div>
-          <div *ngIf="originError" class="error">This address is unrecognized or invalid.</div>
-        </div>
+      <h2>Where does your trip start, and when are you leaving?</h2>
+
+      <div class="origin form-group">
+        <input class="origin-input" type="text" name="origin" (input)="resetOriginError()" formControlName="origin" placeholder="Enter the origin address"/>
+        <div *ngIf="form.hasError('origin') || form.hasError('originDate')" class="error">Origin address and departure date is required</div>
+        <div *ngIf="originError" class="error">This address is unrecognized or invalid.</div>
       </div>
 
       <div class="origin-date">
-        <h2>When are you leaving?</h2>
         <div class="form-group">
-          <label for="origin-date">Origin Date</label>
-          <p-calendar formControlName="originDate" showTime="showTime" hourFormat="12" [minDate]="TodaysDate()" readonlyInput="readonlyInput"></p-calendar>
+          <p-calendar formControlName="originDate" placeholder="Enter Date & Time" showTime="showTime" hourFormat="12" [minDate]="TodaysDate()" readonlyInput="readonlyInput"></p-calendar>
         </div>
+      </div>
+
+      <div class="saved_addresses">
+        <span *ngFor="let ad of saved_addresses" (click)="form.setValue('origin', ad.address)">{{ ad.name }}</span>
       </div>
     </section>
 
-    <section>
+    <section class="destination-wrapper">
       <div class="destination">
         <h2>Where does your trip end?</h2>
-        <div class="saved_addresses">
-          <span *ngFor="let ad of saved_addresses" (click)="form.setValue('destination', ad.address)">{{ ad.name }}</span>
-        </div>
+
         <div class="form-group">
-          <label for="destination">Destination</label>
-          <input type="text" name="destination" (input)="resetDestinationError()" formControlName="destination" placeholder="Enter an address">
+          <input type="text" class="destination-input" name="destination" (input)="resetDestinationError()" formControlName="destination" placeholder="Enter the destination address">
           <div *ngIf="form.hasError('destination')" class="error">Destination address is required</div>
           <div *ngIf="destinationError" class="error">This address is unrecognized or invalid.</div>
         </div>
       </div>
 
-      <div class="destination-date">
-        <h2>When are you leaving?</h2>
-        <div class="form-group">
-          <label for="destination-date">Destination Date</label>
-          <p-calendar formControlName="destinationDate" showTime="showTime" hourFormat="12" [minDate]="TodaysDate()" readonlyInput="readonlyInput"></p-calendar>
-        </div>
+      <div class="saved_addresses">
+        <span *ngFor="let ad of saved_addresses" (click)="form.setValue('destination', ad.address)">{{ ad.name }}</span>
       </div>
     </section>
+
+    <section class="cars-wrapper">
+      <h2>Which car are you taking?</h2>
+      <div *ngIf="selectedCar == null && selectedCarError" class="no-car-selected-error">No car selected</div>
+
+      <div class="car" *ngFor="let car of cars" [ngClass]="{'selected': car == selectedCar}" (click)="selectedCar = car">
+        <p class="car-desc">{{ car.maker }} {{ car.type }}</p>
+        <p>{{ car.capacity }} Seats Total</p>
+      </div>
+
+
+      <div class="new-car"  (click)="showCarForm = true">
+        <p class="plus">✚</p>
+        <p>Add New Car</p>
+      </div>
+    </section>
+
+    <button class="button" type="submit">Submit</button>
   </form>  
 
-  <div class="bottom-content-bar">
-    <div class="content-container">
-      <button class="button" type="submit" (click)="form.isValid() && submit()">Submit</button>
+  <form *ngIf="showCarForm" class="new-car-form" name="new-car-form" [formGroup]="carForm.getForm()" (ngSubmit)="carForm.isValid() && createCar()" novalidate>
+    <div class="form-group">
+      <label for="maker">Make</label>
+      <input type="text" name="maker" formControlName="maker" placeholder="Toyota">
+      <div *ngIf="carForm.hasError('maker')" class="error">Car make is required</div>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="type">Model</label>
+      <input type="text" name="type" formControlName="type" placeholder="Camry">
+      <div *ngIf="carForm.hasError('type')" class="error">Car model is required</div>
+    </div>
+    <div class="form-group">
+      <label for="capacity">Total Seats</label>
+      <input type="text" name="capacity" formControlName="capacity" placeholder="5">
+      <div *ngIf="carForm.hasError('capacity')" class="error">Car capacity is required</div>
+    </div>
+
+    <button class="button submit" type="submit">Submit</button>
+    <button class="button cancel" (click)="showCarForm = false">Cancel</button>
+  </form>
+
 </div>

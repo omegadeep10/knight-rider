@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
-import { User, Trip, Passenger } from '../_models/user';
+import { User, Trip, Passenger, Car } from '../_models/user';
 declare var google: any;
 
 @Injectable()
@@ -14,6 +14,45 @@ export class UserService {
 
     createUser(user: User) {
         return this.http.post(this._baseURL + '/auth/register', user, this.jwt()).map((response: Response) => response.json());
+    }
+
+    createCar(car: Car) {
+        let user_id = this.getUserId();
+        return this.http.post(this._baseURL + `/users/${user_id}/cars`, car, this.jwt()).map((response: Response) => response.json());
+    }
+
+    createTrip(trip: Trip) {
+        let user_id = this.getUserId();
+
+        let tripData = {
+            userId: user_id,
+            origin: trip.origin,
+            originLatitude: trip.originLatitude,
+            originLongitude: trip.originLongitude,
+            departureTime: trip.departureTime.valueOf(),
+            destination: trip.destination,
+            destLatitude: trip.destLatitude,
+            destLongitude: trip.destLongitude,
+            availableSeats: trip.availableSeats,
+            meetingLocation: trip.meetingLocation
+        };
+
+        return this.http.post(this._baseURL + `/users/${user_id}/trips`, tripData, this.jwt()).map((response: Response) => response.json());
+    }
+
+    getUserCars() {
+        let user_id = this.getUserId();
+
+        return this.http.get(this._baseURL + `/users/${user_id}/cars`, this.jwt()).map((response: Response) => {
+            let cars: Car[] = [];
+            let carData = response.json();
+
+            for (let c of carData) {
+                cars.push(new Car(c));
+            }
+
+            return cars;
+        });
     }
 
     getUser() {
@@ -128,7 +167,7 @@ export class UserService {
         }
     }
 
-    private getUserId() {
+    getUserId() {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.user_id) {
             return currentUser.user_id;
