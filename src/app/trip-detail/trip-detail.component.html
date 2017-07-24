@@ -23,7 +23,7 @@
       <p class="label">Driver</p>
       <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="Your Driver">
       <p class="name">{{ driver.firstName }} {{ driver.lastName }}</p>
-      <p class="car">{{ driver?.cars[0].maker }} {{ driver?.cars[0].type }}</p>
+      <p *ngIf="driver.cars" class="car">{{ driver.cars[0].maker }} {{ driver.cars[0].type }}</p>
     </div>
 
     <div class="passengers">
