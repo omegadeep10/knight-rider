@@ -87,6 +87,56 @@ export class UserService {
         });
     }
 
+    getAllTrips() {
+        return this.http.get(this._baseURL + '/trips', this.jwt()).map((response: Response) => {
+            //variable to store user's trips
+            let trips: Trip[] = [];  
+            let tripData = response.json();
+
+            for (let trip of tripData) {
+
+                //Create an array of passengers for each trip
+                let passengers_temp: Passenger[] = [];
+                for (let passenger of trip.passengers) {
+                    passengers_temp.push(new Passenger({
+                        joinDate: new Date(passenger.joinDate),
+                        userId: passenger.userId,
+                        tripId: passenger.tripId
+                    }));
+                }
+
+                //create array of messages for each trip
+                let messages_temp: Message[] = [];
+                for (let message of trip.messages) {
+                    messages_temp.push(new Message({
+                        tripId: message.tripId,
+                        userId: message.userId,
+                        comment: message.comment
+                    }));
+                }
+
+                let [originCity, destCity] = trip.meetingLocation.split('|');
+            
+                //add to trips array
+                trips.push(new Trip({
+                    id: trip.id,
+                    userId: trip.userId,
+                    availableSeats: trip.availableSeats,
+                    origin: trip.origin,
+                    destination: trip.destination,
+                    meetingLocation: trip.meetingLocation,
+                    departureTime: new Date(trip.departureTime),
+                    passengers: passengers_temp,
+                    messages: messages_temp,
+                    originCity: originCity,
+                    destCity: destCity
+                }));
+            }
+
+            return trips;
+        });
+    }
+
     getUserTrips() {
         let email = this.getUsername();
         let user_id = this.getUserId();

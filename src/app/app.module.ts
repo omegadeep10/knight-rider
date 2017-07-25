@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TripDetailComponent } from './trip-detail/trip-detail.component';
 import { NewTripComponent } from './new-trip/new-trip.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NewTripComponent } from './new-trip/new-trip.component';
     LoginComponent,
     RegisterComponent,
     TripDetailComponent,
-    NewTripComponent
+    NewTripComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
