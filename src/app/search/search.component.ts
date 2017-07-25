@@ -16,8 +16,9 @@ declare var google: any;
 })
 export class SearchComponent implements OnInit {
   map;
-  trips: Trip[] = [];
+  infoWindow = new google.maps.InfoWindow();
   directionService = new google.maps.DirectionsService();
+  trips: Trip[] = [];
 
   constructor(
     private router: Router,
@@ -47,7 +48,7 @@ export class SearchComponent implements OnInit {
   }
 
   displayRoute(trip: Trip) {
-    let directionsDisplay = new google.maps.DirectionsRenderer();
+    let directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
     let start = trip.origin;
     let end = trip.destination;
     directionsDisplay.setMap(this.map);
@@ -58,12 +59,33 @@ export class SearchComponent implements OnInit {
       travelMode: google.maps.TravelMode.DRIVING
     };
 
+    let that = this;
     this.directionService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
+        let leg = response.routes[0].legs[0];
+        that.makeMarker(leg.start_location, 'START', '<h1>TESTING</h1>');
+        that.makeMarker(leg.end_location, 'END', '<h1>TESTING 2</h1>');
       } else {
         console.log(response, status);
       }
+    });
+  }
+
+  makeMarker(latLng, label, html) {
+    let that = this;
+    console.log(latLng);
+
+    let marker = new google.maps.Marker({
+      position: latLng,
+      map: that.map,
+      icon: 'https://www.google.com/mapfiles/marker_purple.png',
+      title: label
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      that.infoWindow.setContent(html);
+      that.infoWindow.open(that.map, marker);
     });
   }
 
