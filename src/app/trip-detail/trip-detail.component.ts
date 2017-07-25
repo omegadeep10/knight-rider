@@ -30,7 +30,7 @@ export class TripDetailComponent implements OnInit {
             error => {
               this.alertService.error(error);
             }
-          )
+          );
         },
         error => {
           this.alertService.error(error);
