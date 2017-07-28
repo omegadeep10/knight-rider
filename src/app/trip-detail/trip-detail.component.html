@@ -44,7 +44,9 @@
 
   <div class="bottom-content-bar">
       <div class="content-container">
-          <a [routerLink]="['/search']" class="button">Cancel Reservation</a>
+          <a *ngIf="currentUserIsTheDriver()" (click)="deleteRide()" class="button">Delete Ride</a>
+          <a *ngIf="currentUserIsAPassenger()" (click)="leaveRide()" class="button">Leave Ride</a>
+          <a *ngIf="!currentUserIsAPassenger() && !currentUserIsTheDriver()" (click)="joinRide()" class="button">Join Ride</a>
       </div>
   </div>
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { User, Trip } from '../_models/';
+import { User, Trip, Passenger } from '../_models/';
 
-import { TripService, AlertService, UserService } from '../_services/';
+import { TripService, AlertService, UserService, HelperService } from '../_services/';
 
 
 @Component({
@@ -18,7 +18,8 @@ export class TripDetailComponent implements OnInit {
   constructor(
     private tripService: TripService,
     private userService: UserService,
-    private alertService: AlertService, 
+    private alertService: AlertService,
+    private helperService: HelperService,
     private activateRoute: ActivatedRoute
   ) { 
     activateRoute.params.subscribe((params: Params) => {
@@ -44,6 +45,41 @@ export class TripDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  deleteRide() {
+    this.tripService.deleteTrip(this.trip).subscribe(
+      data => {
+        this.alertService.success('Ride successfully deleted.');
+      },
+      error => {
+        this.alertService.error(error);
+      }
+    )
+  }
+
+  leaveRide() {
+    //to-do
+  }
+
+  joinRide() {
+    //to-do
+  }
+
+  currentUserIsTheDriver() {
+    return this.helperService.getUserId() == this.driver.id;
+  }
+
+  currentUserIsAPassenger() {
+    let passengerIds = [];
+
+    if (this.trip.passengers) {
+      this.trip.passengers.forEach(element => {
+        passengerIds.push(element.userId);
+      });
+    }
+
+    return passengerIds.includes(this.helperService.getUserId());
   }
 
 }

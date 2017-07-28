@@ -27,7 +27,13 @@ export class TripService {
             meetingLocation: trip.meetingLocation
         };
 
-        return this.http.post(this._baseURL + `/users/${user_id}/trips`, tripData, this.helperService.jwt()).map((response: Response) => response.json());
+        return this.http.post(this._baseURL + `/users/${user_id}/trips`, tripData, this.helperService.jwt())
+            .map((response: Response) => response.json());
+    }
+
+    deleteTrip(trip: Trip) {
+        return this.http.delete(this._baseURL + `/trips/${trip.id}`, this.helperService.jwt())
+            .map((res: Response) => { res });
     }
 
     getAllTrips() {

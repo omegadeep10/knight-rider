@@ -104,7 +104,6 @@ export class NewTripComponent implements OnInit {
         that.destCity = results[0].address_components[2].short_name;
       })
       .then(() => {
-        console.log(that.trip);
         that.trip.departureTime = that.form.getData().originDate;
         that.trip.userId = that.helperService.getUserId();
         that.trip.availableSeats = that.selectedCar.capacity;
@@ -112,6 +111,7 @@ export class NewTripComponent implements OnInit {
 
         that.tripService.createTrip(that.trip).subscribe(
           data => {
+            this.alertService.success('Trip successfully created.', true);
             this.router.navigate(['/home']);
           },
           error => {
