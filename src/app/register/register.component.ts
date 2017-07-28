@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ValidationManager } from 'ng2-validation-manager';
-import { User } from '../_models/user';
+import { User } from '../_models/';
 
-import { AlertService } from '../_services/alert.service';
-import { UserService } from '../_services/user.service';
+import { AlertService, UserService } from '../_services/';
 
 @Component({
   selector: 'app-register',

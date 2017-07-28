@@ -10,9 +10,8 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './_directives/alert/alert.component';
 import { MenuComponent } from './_directives/menu/menu.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { AlertService } from './_services/alert.service';
-import { AuthenticationService } from './_services/authentication.service';
-import { UserService } from './_services/user.service';
+
+import { AlertService, TripService, AuthenticationService, CarService, UserService, HelperService } from './_services/';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -46,7 +45,10 @@ import { SearchComponent } from './search/search.component';
     AuthGuard,
     AlertService,
     AuthenticationService,
-    UserService
+    UserService,
+    CarService,
+    TripService,
+    HelperService
   ],
   bootstrap: [AppComponent]
 })

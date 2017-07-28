@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 
-import { Trip } from '../_models/user';
+import { Trip } from '../_models/';
 
-import { AlertService } from '../_services/alert.service';
-import { UserService } from '../_services/user.service';
+import { AlertService, TripService } from '../_services/';
 
 declare var google: any;
 
@@ -22,8 +21,8 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService,
     private alertService: AlertService,
+    private tripService: TripService,
     private http: Http
   ) { }
 
@@ -34,7 +33,7 @@ export class SearchComponent implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
-    this.userService.getAllTrips().subscribe(
+    this.tripService.getAllTrips().subscribe(
       data => {
         this.trips = data;
         for (let trip of data) {

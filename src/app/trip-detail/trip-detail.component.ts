@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { User, Trip } from '../_models/user';
+import { User, Trip } from '../_models/';
 
-import { UserService } from '../_services/user.service';
-import { AlertService } from '../_services/alert.service';
+import { TripService, AlertService, UserService } from '../_services/';
 
 
 @Component({
@@ -16,10 +15,15 @@ export class TripDetailComponent implements OnInit {
   trip: Trip = new Trip();
   driver: User = new User();
 
-  constructor(private userService: UserService, private alertService: AlertService, private activateRoute: ActivatedRoute) { 
+  constructor(
+    private tripService: TripService,
+    private userService: UserService,
+    private alertService: AlertService, 
+    private activateRoute: ActivatedRoute
+  ) { 
     activateRoute.params.subscribe((params: Params) => {
       let tripId = params['id'];
-      userService.getTrip(tripId).subscribe(
+      tripService.getTrip(tripId).subscribe(
         data => {
           this.trip = data;
           

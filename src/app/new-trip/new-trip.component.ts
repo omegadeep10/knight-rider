@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ValidationManager } from 'ng2-validation-manager';
-import { Trip, Car } from '../_models/user';
+import { Trip, Car } from '../_models/';
 
-import { AlertService } from '../_services/alert.service';
-import { UserService } from '../_services/user.service';
+import { AlertService, UserService, CarService, HelperService, TripService } from '../_services/';
 
 
 @Component({
@@ -52,11 +51,14 @@ export class NewTripComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
+    private carService: CarService,
+    private helperService: HelperService,
+    private tripService: TripService,
     private alertService: AlertService
   ) { }
 
   ngOnInit() {
-    this.userService.getUserCars().subscribe(
+    this.carService.getUserCars().subscribe(
       data => { this.cars = data; },
       error => { this.alertService.error(error); }
     );
@@ -84,7 +86,7 @@ export class NewTripComponent implements OnInit {
     let destinationAddress = this.form.getData().destination;
     let that = this;
 
-    this.userService.validateAddress(originAddress)
+    this.helperService.validateAddress(originAddress)
       .then((results) => {
         //set form input to Google's sanitized address
         that.form.setValue('origin', results[0].formatted_address);
@@ -93,7 +95,7 @@ export class NewTripComponent implements OnInit {
         that.trip.originLongitude = results[0].geometry.location.lng();
         that.originCity = results[0].address_components[2].short_name;
       })
-      .then(() => { return this.userService.validateAddress(destinationAddress) })
+      .then(() => { return this.helperService.validateAddress(destinationAddress) })
       .then((results) => {
         that.form.setValue('destination', results[0].formatted_address);
         that.trip.destination = results[0].formatted_address;
@@ -104,11 +106,11 @@ export class NewTripComponent implements OnInit {
       .then(() => {
         console.log(that.trip);
         that.trip.departureTime = that.form.getData().originDate;
-        that.trip.userId = that.userService.getUserId();
+        that.trip.userId = that.helperService.getUserId();
         that.trip.availableSeats = that.selectedCar.capacity;
         that.trip.meetingLocation = that.originCity + ' | ' + that.destCity;
 
-        that.userService.createTrip(that.trip).subscribe(
+        that.tripService.createTrip(that.trip).subscribe(
           data => {
             this.router.navigate(['/home']);
           },
@@ -143,15 +145,15 @@ export class NewTripComponent implements OnInit {
     let car = new Car();
     let carData = this.carForm.getData();
 
-    car.userId = this.userService.getUserId();
+    car.userId = this.helperService.getUserId();
     car.maker = carData.maker;
     car.type = carData.type;
     car.capacity = carData.capacity;
 
-    this.userService.createCar(car).subscribe(
+    this.carService.createCar(car).subscribe(
       data => {
         //fetch new data
-        this.userService.getUserCars().subscribe(
+        this.carService.getUserCars().subscribe(
           data => { this.cars = data; },
           error => { this.alertService.error(error); }
         );
