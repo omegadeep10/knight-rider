@@ -36,6 +36,16 @@ export class TripService {
             .map((res: Response) => { res });
     }
 
+    joinTrip(trip: Trip, user_id) {
+        return this.http.post(this._baseURL + `/passengers/${trip.id}/${user_id}`, this.helperService.jwt())
+            .map((res: Response) => { res.json() });
+    }
+
+    leaveTrip(trip: Trip, user_id) {
+        return this.http.delete(this._baseURL + `/passengers/${trip.id}/${user_id}`, this.helperService.jwt())
+            .map((res: Response) => { res });
+    }
+
     getAllTrips() {
         return this.http.get(this._baseURL + '/trips', this.helperService.jwt()).map((response: Response) => {
             //variable to store user's trips

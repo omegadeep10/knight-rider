@@ -55,15 +55,29 @@ export class TripDetailComponent implements OnInit {
       error => {
         this.alertService.error(error);
       }
-    )
+    );
   }
 
   leaveRide() {
-    //to-do
+    this.tripService.leaveTrip(this.trip, this.helperService.getUserId).subscribe(
+      data => {
+        this.alertService.success('Your reservation was successfully canceled.');
+      },
+      error => {
+        this.alertService.error(error);
+      }
+    );
   }
 
   joinRide() {
-    //to-do
+    this.tripService.joinTrip(this.trip, this.helperService.getUserId).subscribe(
+      data => {
+        this.alertService.success('Your trip reservation was successfully made.');
+      },
+      error => {
+        this.alertService.error(error);
+      }
+    );
   }
 
   currentUserIsTheDriver() {
