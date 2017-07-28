@@ -14,6 +14,7 @@ export class TripDetailComponent implements OnInit {
 
   trip: Trip = new Trip();
   driver: User = new User();
+  loading: boolean = true;
 
   constructor(
     private tripService: TripService,
@@ -31,6 +32,7 @@ export class TripDetailComponent implements OnInit {
           userService.getUser(data.userId).subscribe(
             data => {
               this.driver = data;
+              this.loading = false;
             },
             error => {
               this.alertService.error(error);
