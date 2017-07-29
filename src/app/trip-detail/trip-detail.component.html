@@ -7,23 +7,23 @@
     <div class="trip-info">
       <div class="origin">
           <p class="label">Pickup Location</p>
-          <p class="title">{{ trip.origin }} </p>
+          <p class="title">{{ trip.originAddress }} </p>
           <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
       </div>
       <div class="destination">
           <p class="label">Dropoff Location</p>
-          <p class="title">{{ trip.destination }}</p>
+          <p class="title">{{ trip.destAddress }}</p>
           <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
       </div>
     </div>
   </div>
 
-  <div class="driver-container">
+  <div *ngIf="trip.driver" class="driver-container">
     <div class="driver cf">
       <p class="label">Driver</p>
       <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="Your Driver">
-      <p class="name">{{ driver.firstName }} {{ driver.lastName }}</p>
-      <p *ngIf="driver.cars" class="car">{{ driver.cars[0].maker }} {{ driver.cars[0].type }}</p>
+      <p class="name">{{ trip.driver.firstName }} {{ trip.driver.lastName }}</p>
+      <p class="car">{{ trip.car.maker }} {{ trip.car.type }}</p>
     </div>
 
     <div class="passengers">
@@ -31,12 +31,12 @@
       <div *ngFor="let passenger of trip.passengers" class="passenger">
         <img src="https://s3.amazonaws.com/uifaces/faces/twitter/k/128.jpg" alt="Passenger Name here">
         <div class="passenger-tooltip">
-          Gregory Jones
+          {{ passenger.firstName }} {{ passenger.lastName }}
         </div>
       </div>
 
       <div class="seats">
-        <p class="available-seats">{{ trip.availableSeats | number:'2.0-0' }}</p>
+        <p class="available-seats">{{ trip.remainingSeats | number:'2.0-0' }}</p>
         <p>Seats Available</p>
       </div>
     </div>

@@ -48,8 +48,8 @@ export class SearchComponent implements OnInit {
 
   displayRoute(trip: Trip) {
     let directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
-    let start = trip.origin;
-    let end = trip.destination;
+    let start = trip.originAddress;
+    let end = trip.destAddress;
     directionsDisplay.setMap(this.map);
     
     let request = {

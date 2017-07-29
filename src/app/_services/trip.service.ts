@@ -15,16 +15,18 @@ export class TripService {
         let user_id = this.helperService.getUserId();
 
         let tripData = {
-            userId: user_id,
-            origin: trip.origin,
+            carId: trip.car.id,
+            driverId: user_id,
+            originAddress: trip.originAddress,
+            originCity: trip.originCity,
             originLatitude: trip.originLatitude,
             originLongitude: trip.originLongitude,
             departureTime: trip.departureTime.valueOf(),
-            destination: trip.destination,
+            destAddress: trip.destAddress,
+            destCity: trip.destCity,
             destLatitude: trip.destLatitude,
             destLongitude: trip.destLongitude,
-            availableSeats: trip.availableSeats,
-            meetingLocation: trip.meetingLocation
+            availableSeats: trip.availableSeats
         };
 
         return this.http.post(this._baseURL + `/users/${user_id}/trips`, tripData, this.helperService.jwt())
@@ -60,35 +62,63 @@ export class TripService {
                     passengers_temp.push(new Passenger({
                         joinDate: new Date(passenger.joinDate),
                         userId: passenger.userId,
-                        tripId: passenger.tripId
+                        tripId: passenger.tripId,
+                        firstName: passenger.firstName,
+                        lastName: passenger.lastName
                     }));
                 }
+
+                //create temp Driver
+                let driver_temp: User = new User({
+                    id: trip.driver.driverId,
+                    email: trip.driver.username,
+                    firstName: trip.driver.firstName,
+                    lastName: trip.driver.lastName,
+                    address: trip.driver.address,
+                    zip: trip.driver.zip,
+                    phone: trip.driver.phone
+                });
+
+                //create temp car
+                let car_temp: Car = new Car({
+                    id: trip.car.id,
+                    maker: trip.car.maker,
+                    type: trip.car.type,
+                    capacity: trip.car.capacity
+                });
 
                 //create array of messages for each trip
                 let messages_temp: Message[] = [];
                 for (let message of trip.messages) {
                     messages_temp.push(new Message({
+                        id: message.id,
                         tripId: message.tripId,
                         userId: message.userId,
-                        comment: message.comment
+                        comment: message.comment,
+                        logDate: new Date(message.logDate)
                     }));
                 }
-
-                let [originCity, destCity] = trip.meetingLocation.split('|');
             
                 //add to trips array
                 trips.push(new Trip({
                     id: trip.id,
-                    userId: trip.userId,
-                    availableSeats: trip.availableSeats,
-                    origin: trip.origin,
-                    destination: trip.destination,
-                    meetingLocation: trip.meetingLocation,
+                    carId: trip.carId,
+                    driverId: trip.driverId,
+                    originAddress: trip.originAddress,
+                    originCity: trip.originCity,
+                    originLatitude: trip.originLatitude,
+                    originLongitude: trip.originLongitude,
+                    destAddress: trip.destAddress,
+                    destLatitude: trip.destLatitude,
+                    destLongitude: trip.destLongitude,
+                    destCity: trip.destCity,
                     departureTime: new Date(trip.departureTime),
+                    availableSeats: trip.availableSeats,
+                    remainingSeats: trip.remainingSeats,
+                    driver: driver_temp,
+                    car: car_temp,
                     passengers: passengers_temp,
-                    messages: messages_temp,
-                    originCity: originCity,
-                    destCity: destCity
+                    messages: messages_temp
                 }));
             }
 
@@ -100,51 +130,66 @@ export class TripService {
         let email = this.helperService.getUsername();
         let user_id = this.helperService.getUserId();
 
-        return this.http.get(this._baseURL + '/users/' + user_id, this.helperService.jwt()).map((response: Response) => {
+        return this.http.get(this._baseURL + `/users/${user_id}/trips`, this.helperService.jwt()).map((response: Response) => {
+            console.log(response);
             //variable to store user's trips
             let trips: Trip[] = [];  
-            let user = response.json();
+            let tripData = response.json();
 
-            if (user.username === email) {
-                for (let trip of user.trips) {
+            for (let trip of tripData) {
 
-                    //Create an array of passengers for each trip
-                    let passengers_temp: Passenger[] = [];
-                    for (let passenger of trip.passengers) {
-                        passengers_temp.push(new Passenger({
-                            joinDate: new Date(passenger.joinDate),
-                            userId: passenger.userId,
-                            tripId: passenger.tripId
-                        }));
-                    }
-
-                    //create array of messages for each trip
-                    let messages_temp: Message[] = [];
-                    for (let message of trip.messages) {
-                        messages_temp.push(new Message({
-                            tripId: message.tripId,
-                            userId: message.userId,
-                            comment: message.comment
-                        }));
-                    }
-
-                    let [originCity, destCity] = trip.meetingLocation.split('|');
-                
-                    //add to trips array
-                    trips.push(new Trip({
-                        id: trip.id,
-                        userId: trip.userId,
-                        availableSeats: trip.availableSeats,
-                        origin: trip.origin,
-                        destination: trip.destination,
-                        meetingLocation: trip.meetingLocation,
-                        departureTime: new Date(trip.departureTime),
-                        passengers: passengers_temp,
-                        messages: messages_temp,
-                        originCity: originCity,
-                        destCity: destCity
+                //Create an array of passengers for each trip
+                let passengers_temp: Passenger[] = [];
+                for (let passenger of trip.passengers) {
+                    passengers_temp.push(new Passenger({
+                        joinDate: new Date(passenger.joinDate),
+                        userId: passenger.userId,
+                        tripId: passenger.tripId,
+                        firstName: passenger.firstName,
+                        lastName: passenger.lastName
                     }));
                 }
+
+                //create temp car
+                let car_temp: Car = new Car({
+                    id: trip.car.id,
+                    maker: trip.car.maker,
+                    type: trip.car.type,
+                    capacity: trip.car.capacity
+                });
+
+                //create array of messages for each trip
+                let messages_temp: Message[] = [];
+                for (let message of trip.messages) {
+                    messages_temp.push(new Message({
+                        id: message.id,
+                        tripId: message.tripId,
+                        userId: message.userId,
+                        comment: message.comment,
+                        logDate: new Date(message.logDate)
+                    }));
+                }
+            
+                //add to trips array
+                trips.push(new Trip({
+                    id: trip.id,
+                    carId: trip.carId,
+                    driverId: trip.driverId,
+                    originAddress: trip.originAddress,
+                    originCity: trip.originCity,
+                    originLatitude: trip.originLatitude,
+                    originLongitude: trip.originLongitude,
+                    destAddress: trip.destAddress,
+                    destLatitude: trip.destLatitude,
+                    destLongitude: trip.destLongitude,
+                    destCity: trip.destCity,
+                    departureTime: new Date(trip.departureTime),
+                    availableSeats: trip.availableSeats,
+                    remainingSeats: trip.remainingSeats,
+                    car: car_temp,
+                    passengers: passengers_temp,
+                    messages: messages_temp
+                }));
             }
 
             return trips;
@@ -154,45 +199,75 @@ export class TripService {
     getTrip(tripId: number) {
         return this.http.get(this._baseURL + '/trips/' + tripId, this.helperService.jwt()).map((response: Response) => {
             //variable to store trip data
-            let tripData = response.json();
+            let trip = response.json();
 
-            let passengers_temp: Passenger[] = [];
-            for (let passenger of tripData.passengers) {
-                passengers_temp.push(new Passenger({
-                    joinDate: new Date(passenger.joinDate),
-                    userId: passenger.userId,
-                    tripId: passenger.tripId
-                }));
-            }
+            //Create an array of passengers for each trip
+                let passengers_temp: Passenger[] = [];
+                for (let passenger of trip.passengers) {
+                    passengers_temp.push(new Passenger({
+                        joinDate: new Date(passenger.joinDate),
+                        userId: passenger.userId,
+                        tripId: passenger.tripId,
+                        firstName: passenger.firstName,
+                        lastName: passenger.lastName
+                    }));
+                }
 
-            //create array of messages for each trip
-            let messages_temp: Message[] = [];
-            for (let message of tripData.messages) {
-                messages_temp.push(new Message({
-                    tripId: message.tripId,
-                    userId: message.userId,
-                    comment: message.comment
-                }));
-            }
+                //create temp Driver
+                let driver_temp: User = new User({
+                    id: trip.driver.driverId,
+                    email: trip.driver.username,
+                    firstName: trip.driver.firstName,
+                    lastName: trip.driver.lastName,
+                    address: trip.driver.address,
+                    zip: trip.driver.zip,
+                    phone: trip.driver.phone
+                });
 
-            let [originCity, destCity] = tripData.meetingLocation.split('|');
+                //create temp car
+                let car_temp: Car = new Car({
+                    id: trip.car.id,
+                    maker: trip.car.maker,
+                    type: trip.car.type,
+                    capacity: trip.car.capacity
+                });
 
-            let trip: Trip = new Trip({
-                id: tripData.id,
-                userId: tripData.userId,
-                availableSeats: tripData.availableSeats,
-                origin: tripData.origin,
-                destination: tripData.destination,
-                meetingLocation: tripData.meetingLocation,
-                departureTime: new Date(tripData.departureTime),
-                passengers: passengers_temp,
-                messages: messages_temp,
-                originCity: originCity,
-                destCity: destCity
-            });
+                //create array of messages for each trip
+                let messages_temp: Message[] = [];
+                for (let message of trip.messages) {
+                    messages_temp.push(new Message({
+                        id: message.id,
+                        tripId: message.tripId,
+                        userId: message.userId,
+                        comment: message.comment,
+                        logDate: new Date(message.logDate)
+                    }));
+                }
+            
+                //add to trips array
+                let tripObj: Trip = new Trip({
+                    id: trip.id,
+                    carId: trip.carId,
+                    driverId: trip.driverId,
+                    originAddress: trip.originAddress,
+                    originCity: trip.originCity,
+                    originLatitude: trip.originLatitude,
+                    originLongitude: trip.originLongitude,
+                    destAddress: trip.destAddress,
+                    destLatitude: trip.destLatitude,
+                    destLongitude: trip.destLongitude,
+                    destCity: trip.destCity,
+                    departureTime: new Date(trip.departureTime),
+                    availableSeats: trip.availableSeats,
+                    remainingSeats: trip.remainingSeats,
+                    driver: driver_temp,
+                    car: car_temp,
+                    passengers: passengers_temp,
+                    messages: messages_temp
+                });
             
 
-            return trip;
+            return tripObj;
         });
     }
 }

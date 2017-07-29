@@ -45,8 +45,6 @@ export class NewTripComponent implements OnInit {
   originError: Boolean = false;
   destinationError: Boolean = false;
   showCarForm: Boolean = false;
-  originCity: string = "";
-  destCity: string = "";
 
   constructor(
     private router: Router,
@@ -90,24 +88,24 @@ export class NewTripComponent implements OnInit {
       .then((results) => {
         //set form input to Google's sanitized address
         that.form.setValue('origin', results[0].formatted_address);
-        that.trip.origin = results[0].formatted_address;
+        that.trip.originAddress = results[0].formatted_address;
         that.trip.originLatitude = results[0].geometry.location.lat();
         that.trip.originLongitude = results[0].geometry.location.lng();
-        that.originCity = results[0].address_components[2].short_name;
+        that.trip.originCity = results[0].address_components[2].short_name;
       })
       .then(() => { return this.helperService.validateAddress(destinationAddress) })
       .then((results) => {
         that.form.setValue('destination', results[0].formatted_address);
-        that.trip.destination = results[0].formatted_address;
+        that.trip.destAddress = results[0].formatted_address;
         that.trip.destLatitude = results[0].geometry.location.lat();
         that.trip.destLongitude = results[0].geometry.location.lng();
-        that.destCity = results[0].address_components[2].short_name;
+        that.trip.destCity = results[0].address_components[2].short_name;
       })
       .then(() => {
         that.trip.departureTime = that.form.getData().originDate;
-        that.trip.userId = that.helperService.getUserId();
+        that.trip.driverId = that.helperService.getUserId();
         that.trip.availableSeats = that.selectedCar.capacity;
-        that.trip.meetingLocation = that.originCity + ' | ' + that.destCity;
+        that.trip.car = that.selectedCar;
 
         that.tripService.createTrip(that.trip).subscribe(
           data => {
@@ -126,6 +124,8 @@ export class NewTripComponent implements OnInit {
         if (invalidAddress == destinationAddress) {
           this.destinationError = true;
         }
+
+        console.log(invalidAddress);
       });
   }
 

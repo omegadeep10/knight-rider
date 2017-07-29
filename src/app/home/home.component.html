@@ -6,11 +6,11 @@
         <h3>{{ trip.originCity }} <span class="arrow">➔</span> {{ trip.destCity }}</h3>
         <div class="trip-info">
             <div class="origin">
-                <p class="title">{{ trip.origin }} </p>
+                <p class="title">{{ trip.originAddress }} </p>
                 <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
             </div>
             <div class="destination">
-                <p class="title">{{ trip.destination }}</p>
+                <p class="title">{{ trip.destAddress }}</p>
                 <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
             </div>
         </div>
@@ -22,7 +22,7 @@
         </div>-->
 
         <div class="seats">
-            <p class="available-seats">{{ trip.availableSeats - trip.passengers.length | number:'2.0-0' }}</p>
+            <p class="available-seats">{{ trip.remainingSeats }}</p>
             <p>Seats</p>
         </div>
 

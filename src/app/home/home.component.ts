@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit {
       },
       error => {
         this.alertService.error(error);
+        console.log("ERROR", error);
+        this.loading = false;
       }
     );
   }

@@ -13,7 +13,6 @@ import { TripService, AlertService, UserService, HelperService } from '../_servi
 export class TripDetailComponent implements OnInit {
 
   trip: Trip = new Trip();
-  driver: User = new User();
   loading: boolean = true;
 
   constructor(
@@ -21,23 +20,15 @@ export class TripDetailComponent implements OnInit {
     private userService: UserService,
     private alertService: AlertService,
     private helperService: HelperService,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    private router: Router
   ) { 
     activateRoute.params.subscribe((params: Params) => {
       let tripId = params['id'];
       tripService.getTrip(tripId).subscribe(
         data => {
           this.trip = data;
-          
-          userService.getUser(data.userId).subscribe(
-            data => {
-              this.driver = data;
-              this.loading = false;
-            },
-            error => {
-              this.alertService.error(error);
-            }
-          );
+          this.loading = false;
         },
         error => {
           this.alertService.error(error);
@@ -52,7 +43,8 @@ export class TripDetailComponent implements OnInit {
   deleteRide() {
     this.tripService.deleteTrip(this.trip).subscribe(
       data => {
-        this.alertService.success('Ride successfully deleted.');
+        this.alertService.success('Ride successfully deleted.', true);
+        this.router.navigate(['/home']);
       },
       error => {
         this.alertService.error(error);
@@ -83,7 +75,11 @@ export class TripDetailComponent implements OnInit {
   }
 
   currentUserIsTheDriver() {
-    return this.helperService.getUserId() == this.driver.id;
+    if (this.trip.driver) {
+      return this.helperService.getUserId() == this.trip.driver.id;
+    } else {
+      return false;
+    }
   }
 
   currentUserIsAPassenger() {
