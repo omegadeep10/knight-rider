@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
   infoWindow = new google.maps.InfoWindow();
   directionService = new google.maps.DirectionsService();
   trips: Trip[] = [];
+  loading: boolean = true;
 
   constructor(
     private router: Router,
@@ -39,9 +40,11 @@ export class SearchComponent implements OnInit {
         for (let trip of data) {
           this.displayRoute(trip);
         }
+        this.loading = false;
       },
       error => {
         this.alertService.error(error);
+        this.loading = false;
       }
     );
   }
@@ -63,8 +66,8 @@ export class SearchComponent implements OnInit {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
         let leg = response.routes[0].legs[0];
-        that.makeMarker(leg.start_location, 'START', '<h1>TESTING</h1>');
-        that.makeMarker(leg.end_location, 'END', '<h1>TESTING 2</h1>');
+        that.makeMarker(leg.start_location, 'START', document.getElementById(trip.id.toString()).cloneNode(true));
+        that.makeMarker(leg.end_location, 'END', document.getElementById(trip.id.toString()).cloneNode(true));
       } else {
         console.log(response, status);
       }
@@ -73,7 +76,6 @@ export class SearchComponent implements OnInit {
 
   makeMarker(latLng, label, html) {
     let that = this;
-    console.log(latLng);
 
     let marker = new google.maps.Marker({
       position: latLng,

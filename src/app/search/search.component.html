@@ -1,3 +1,40 @@
 <menu-bar></menu-bar>
 
 <div id="google-map"></div>
+
+<div class="trips-container">
+  <a *ngFor="let trip of trips" [id]="trip.id" class="trip-card cf" [href]="'/trip/' + trip.id">
+      <h3>{{ trip.originCity }} <span class="arrow">➔</span> {{ trip.destCity }}</h3>
+      <div class="trip-info">
+          <div class="origin">
+              <p class="title">{{ trip.originAddress | slice:0:35 }}...</p>
+              <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
+          </div>
+          <div class="destination">
+              <p class="title">{{ trip.destAddress | slice:0:35 }}...</p>
+              <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
+          </div>
+      </div>
+
+      <!--<div class="driver cf">
+          <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="Your Driver">
+          <p class="name">Benjamin Franklin</p>
+          <p class="car">Chevy Malibu 2012</p>
+      </div>-->
+
+      <div class="seats">
+          <p class="available-seats">{{ trip.remainingSeats }}</p>
+          <p>Seats</p>
+      </div>
+
+      <div class="messages">
+          <p class="available-seats">{{ trip.messages.length | number:'2.0-0' }}</p>
+          <p>Messages</p>
+      </div>
+  </a>
+</div>
+
+
+<div *ngIf="loading" class="loading">
+  <img src="./assets/loading.gif" alt="">
+</div>

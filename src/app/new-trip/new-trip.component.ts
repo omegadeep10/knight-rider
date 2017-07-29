@@ -37,7 +37,7 @@ export class NewTripComponent implements OnInit {
       address: '71 Airport Road Eastman, GA 31023'
     },
   ];
-  loading = false;
+  loading = true;
   trip: Trip = new Trip();
   cars: Car[] = [];
   selectedCar: Car = null;
@@ -57,7 +57,10 @@ export class NewTripComponent implements OnInit {
 
   ngOnInit() {
     this.carService.getUserCars().subscribe(
-      data => { this.cars = data; },
+      data => { 
+        this.cars = data;
+        this.loading = false;
+      },
       error => { this.alertService.error(error); }
     );
 
@@ -75,6 +78,7 @@ export class NewTripComponent implements OnInit {
   }
 
   submit() {
+    this.loading = true;
     if (this.selectedCar == null) {
       this.selectedCarError = true;
       return;
@@ -142,6 +146,7 @@ export class NewTripComponent implements OnInit {
   }
 
   createCar() {
+    this.loading = true;
     let car = new Car();
     let carData = this.carForm.getData();
 
@@ -152,12 +157,18 @@ export class NewTripComponent implements OnInit {
 
     this.carService.createCar(car).subscribe(
       data => {
+        this.showCarForm = false;
         //fetch new data
         this.carService.getUserCars().subscribe(
-          data => { this.cars = data; },
-          error => { this.alertService.error(error); }
+          data => { 
+            this.cars = data; 
+            this.loading = false;
+          },
+          error => { 
+            this.alertService.error(error); 
+            this.loading = false;
+          }
         );
-        this.showCarForm = false;
       },
       error => {
         this.alertService.error(error);

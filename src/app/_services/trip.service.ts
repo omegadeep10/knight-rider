@@ -131,7 +131,6 @@ export class TripService {
         let user_id = this.helperService.getUserId();
 
         return this.http.get(this._baseURL + `/users/${user_id}/trips`, this.helperService.jwt()).map((response: Response) => {
-            console.log(response);
             //variable to store user's trips
             let trips: Trip[] = [];  
             let tripData = response.json();
