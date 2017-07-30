@@ -42,6 +42,15 @@
     </div>
   </div>
 
+  <div class="messages-container">
+
+    <div *ngFor="let message of trip.messages" class="message">
+      <p class="name">{{ message.id }}</p>
+      <p class="message">{{ message.comment }}</p>
+    </div>
+    <input type="text" #messagebox class="message-input" (keyup.enter)="submitMessage(messagebox.value)">
+  </div>
+
   <div class="bottom-content-bar">
       <div class="content-container">
           <a *ngIf="currentUserIsTheDriver()" (click)="deleteRide()" class="button">Delete Ride</a>

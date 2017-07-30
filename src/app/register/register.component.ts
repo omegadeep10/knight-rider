@@ -13,6 +13,9 @@ import { AlertService, UserService } from '../_services/';
 export class RegisterComponent implements OnInit {
   form;
   loading = false;
+  image;
+  fileUploadError = false;
+  passwordError = false;
   user: User;
 
   constructor(
@@ -34,6 +37,12 @@ export class RegisterComponent implements OnInit {
 
   submit() {
     this.loading = true;
+    var regex = new RegExp(/^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{4,}$/);
+
+    if (!regex.test(this.form.getData().password)) {
+      this.passwordError = true;
+      return false;
+    }
 
     this.userService.createUser(this.form.getData()).subscribe(
       data => {
@@ -43,10 +52,28 @@ export class RegisterComponent implements OnInit {
       },
       error => {
         this.alertService.error(error);
+        console.log(error);
         this.loading = false;
       }
     );
+  }
 
+  changeListener($event) : void {
+    this.readThis($event.target);
+  }
+
+  readThis(inputValue: any): void {
+    var file:File = inputValue.files[0];
+    var myReader:FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.image = myReader.result;
+    }
+    myReader.readAsDataURL(file);
+  }
+
+  resetPasswordError() {
+    this.passwordError = false;
   }
 
 }

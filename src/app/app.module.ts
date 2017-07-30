@@ -11,7 +11,7 @@ import { AlertComponent } from './_directives/alert/alert.component';
 import { MenuComponent } from './_directives/menu/menu.component';
 import { AuthGuard } from './_guards/auth.guard';
 
-import { AlertService, TripService, AuthenticationService, CarService, UserService, HelperService } from './_services/';
+import { AlertService, TripService, AuthenticationService, CarService, UserService, HelperService, MessageService } from './_services/';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -48,6 +48,7 @@ import { SearchComponent } from './search/search.component';
     UserService,
     CarService,
     TripService,
+    MessageService,
     HelperService
   ],
   bootstrap: [AppComponent]

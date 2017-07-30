@@ -40,8 +40,8 @@ export class TripService {
     }
 
     joinTrip(trip: Trip, user_id) {
-        return this.http.post(this._baseURL + `/passengers/${trip.id}/${user_id}`, this.helperService.jwt())
-            .map((res: Response) => { res.json() });
+        return this.http.post(this._baseURL + `/passengers/${trip.id}/${user_id}`, {}, this.helperService.jwt())
+            .map((res: Response) => { res });
     }
 
     leaveTrip(trip: Trip, user_id) {
@@ -61,9 +61,8 @@ export class TripService {
                 let passengers_temp: Passenger[] = [];
                 for (let passenger of trip.passengers) {
                     passengers_temp.push(new Passenger({
-                        joinDate: new Date(passenger.joinDate),
-                        userId: passenger.userId,
-                        tripId: passenger.tripId,
+                        userId: passenger.id,
+                        tripId: trip.id,
                         firstName: passenger.firstName,
                         lastName: passenger.lastName
                     }));
@@ -142,9 +141,8 @@ export class TripService {
                 let passengers_temp: Passenger[] = [];
                 for (let passenger of trip.passengers) {
                     passengers_temp.push(new Passenger({
-                        joinDate: new Date(passenger.joinDate),
-                        userId: passenger.userId,
-                        tripId: passenger.tripId,
+                        userId: passenger.id,
+                        tripId: trip.id,
                         firstName: passenger.firstName,
                         lastName: passenger.lastName
                     }));
@@ -205,9 +203,8 @@ export class TripService {
                 let passengers_temp: Passenger[] = [];
                 for (let passenger of trip.passengers) {
                     passengers_temp.push(new Passenger({
-                        joinDate: new Date(passenger.joinDate),
-                        userId: passenger.userId,
-                        tripId: passenger.tripId,
+                        userId: passenger.id,
+                        tripId: trip.id,
                         firstName: passenger.firstName,
                         lastName: passenger.lastName
                     }));

@@ -12,7 +12,18 @@ export class UserService {
     constructor(private http: Http, private helperService: HelperService) { }
 
     createUser(user: User) {
-        return this.http.post(this._baseURL + '/auth/register', user, this.helperService.jwt()).map((response: Response) => response.json());
+        return this.http.post(this._baseURL + '/auth/register', user, this.helperService.jwt())
+            .map((response: Response) => response.json());
+    }
+
+    updateUserPhoto(user_id, base64Photo) {
+        let data = {
+            id: user_id,
+            profilePicture: base64Photo
+        };
+
+        return this.http.put(this._baseURL + `/users/profilepicture/${user_id}`, data, this.helperService.jwt())
+            .map((res: Response) => res.json());
     }
 
     //gets the user specified or the currently logged in user if no user is specified
