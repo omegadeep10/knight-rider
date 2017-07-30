@@ -26,7 +26,8 @@ export class TripService {
             destCity: trip.destCity,
             destLatitude: trip.destLatitude,
             destLongitude: trip.destLongitude,
-            availableSeats: trip.availableSeats
+            availableSeats: trip.availableSeats,
+            meetingLocation: 'none specified'
         };
 
         return this.http.post(this._baseURL + `/users/${user_id}/trips`, tripData, this.helperService.jwt())

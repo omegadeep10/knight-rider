@@ -66,21 +66,28 @@ export class SearchComponent implements OnInit {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
         let leg = response.routes[0].legs[0];
-        that.makeMarker(leg.start_location, 'START', document.getElementById(trip.id.toString()).cloneNode(true));
-        that.makeMarker(leg.end_location, 'END', document.getElementById(trip.id.toString()).cloneNode(true));
+        that.makeMarker(leg.start_location, 'START', document.getElementById(trip.id.toString()).cloneNode(true), 'http://maps.google.com/mapfiles/marker_purpleA.png');
+        that.makeMarker(leg.end_location, 'END', document.getElementById(trip.id.toString()).cloneNode(true), 'http://maps.google.com/mapfiles/marker_purpleB.png');
       } else {
         console.log(response, status);
       }
     });
   }
 
-  makeMarker(latLng, label, html) {
+  makeMarker(latLng, label, html, iconImage) {
     let that = this;
+    let offset = Math.random() < 0.5 ? (Math.random() / -1000) : (Math.random() / 1000);
+    let offset2 = Math.random() < 0.5 ? (Math.random() / -1000) : (Math.random() / 1000);
+
+    let offsettedLatLng = {
+      lat: latLng.lat() + offset,
+      lng: latLng.lng() + offset2
+    };
 
     let marker = new google.maps.Marker({
-      position: latLng,
+      position: offsettedLatLng,
       map: that.map,
-      icon: 'https://www.google.com/mapfiles/marker_purple.png',
+      icon: iconImage,
       title: label
     });
 

@@ -118,6 +118,7 @@ export class NewTripComponent implements OnInit {
           },
           error => {
             that.alertService.error(error);
+            that.loading = false;
           }
         )
       })
