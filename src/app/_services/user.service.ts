@@ -16,14 +16,27 @@ export class UserService {
             .map((response: Response) => response.json());
     }
 
+    updateUser(user: User) {
+        let data = {
+            username: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phone: user.phone,
+            zip: '',
+            address: ''
+        }
+
+        return this.http.put(this._baseURL + `/users/${user.id}`, data, this.helperService.jwt())
+            .map((res: Response) => { res });
+    }
+
     updateUserPhoto(user_id, base64Photo) {
         let data = {
-            id: user_id,
             profilePicture: base64Photo
         };
 
-        return this.http.put(this._baseURL + `/users/profilepicture/${user_id}`, data, this.helperService.jwt())
-            .map((res: Response) => res.json());
+        return this.http.post(this._baseURL + `/users/profilepicture/${user_id}`, data, this.helperService.jwt())
+            .map((res: Response) => { res });
     }
 
     //gets the user specified or the currently logged in user if no user is specified
@@ -51,6 +64,7 @@ export class UserService {
             usr.id = user.id;
             usr.phone = user.phone;
             usr.zip = user.zip;
+            usr.profilePicture = user.profilePicture;
             usr.email = user.username;
             usr.password = null;
             usr.cars = cars_temp;

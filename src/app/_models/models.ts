@@ -8,6 +8,7 @@ export class User {
     address?: string;
     zip?: string;
     phone?: string;
+    profilePicture: string;
     cars: Car[];
 
     constructor(init?: Partial<User>) {

@@ -1,0 +1,92 @@
+@import 'variables'
+@import 'media-queries'
+
+.profile-container
+    max-width: 1280px
+    margin: 0 auto
+    padding: 0 50px 50px 50px
+
+    +tablet
+        padding: 0 40px 40px 40px
+
+.profile-page
+    margin-top: 40px
+
+    +large-tablet
+        left: 50px
+    
+    +tablet
+        left: 50%
+        transform: translate(-55%, -50%)
+        padding: 80px 40px
+        max-width: 450px
+        margin-left: auto
+    
+    +large-phone
+        position: static
+        transform: none
+        padding: 50px 35px
+
+h1
+    font-family: $f
+    font-size: 22px
+    font-weight: 500
+    color: #3e3e3e
+    margin-top: 60px
+    font-size: 20px
+    margin-bottom: 40px
+
+    +tablet
+        margin-top: 40px
+        margin-bottom: 25px
+        font-size: 20px
+
+.subtitle
+    font-family: $f
+    font-weight: 400
+    font-size: 22px
+    margin-top: 30px
+    max-width: 400px
+    line-height: 30px
+    color: #2f2f2f
+
+    +large-tablet
+        font-size: 20px
+        margin-top: 25px
+
+form
+    margin-top: 50px
+
+    +large-tablet
+        margin-top: 60px
+    
+    .profile-upload
+        margin-right: 0
+        width: 100%
+
+    .profile-output
+        width: 50px
+        height: 50px
+        margin-top: 20px
+
+    .control-group
+        margin-bottom: 40px
+
+    .error
+        top: auto
+        bottom: -20px
+
+        +tablet
+            position: static
+            margin-top: 10px
+
+    p
+        color: #2f2f2f
+        font-size: 16px
+        font-weight: 500
+        font-family: $f
+        margin-bottom: 10px
+
+        +large-tablet
+            font-size: 14px
+            margin-bottom: 0

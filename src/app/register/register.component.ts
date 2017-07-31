@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
 
     myReader.onloadend = (e) => {
       this.image = myReader.result;
+      console.log(this.image);
     }
     myReader.readAsDataURL(file);
   }

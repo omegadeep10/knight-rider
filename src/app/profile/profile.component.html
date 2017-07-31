@@ -1,3 +1,47 @@
 <menu-bar></menu-bar>
 
-<p>Profile</p>
+<div class="profile-container">
+    <div class="profile-page">
+        <h1>Update Your Profile</h1>
+        
+        <form name="profile-form" [formGroup]="form.getForm()" (ngSubmit)="form.isValid() && submit()" novalidate>
+            <alert></alert>
+            
+            <div class="control-group">
+              <p>What's your name?</p>
+              <div class="form-group">
+                  <input type="text" name="firstName" (ngModel)="user.firstName" formControlName="firstName" placeholder="First Name"/>
+                  <div *ngIf="form.hasError('firstName')" class="error">First name is required</div>
+              </div>
+              <div class="form-group">
+                  <input type="text" name="lastName" (ngModel)="user.lastName" formControlName="lastName" placeholder="Last Name"/>
+                  <div *ngIf="form.hasError('lastName')" class="error">Last name is required</div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <p>Upload a profile photo.</p>
+              <div class="form-group">
+                  <input class="profile-upload" type="file" accept="image/*" (change)="changeListener($event)" name="profilePhoto" placeholder="Profile Photo"/>
+                  <img class="profile-output" [src]="image" alt="">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <p>How can we contact you?</p>
+              <div class="form-group">
+                  <input type="text" name="phone" (ngModel)="user.phone" formControlName="phone" placeholder="Phone"/>
+                  <div *ngIf="form.hasError('phone')" class="error">{{ form.getError('phone') }}</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <button [disabled]="loading">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="loading" class="loading">
+  <img src="./assets/loading.gif" alt="">
+</div>
