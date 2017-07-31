@@ -220,6 +220,60 @@ h2
                 margin-top: 2px
                 font-size: 10px
 
+.messages-container
+    display: inline-block
+    vertical-align: top
+    width: 300px
+    border: 1px solid #C5C5C5
+    border-radius: 15px
+    height: 450px
+    position: relative
+
+
+
+    .messages-overflow-ct
+        overflow-y: scroll
+        height: 330px
+
+    .message
+        background-color: #ececec
+        margin: 20px
+        margin-top: 40px
+        padding: 13px
+        border-radius: 12px 0 12px 12px
+        position: relative
+
+        &.current-user
+            border-radius: 0 12px 12px 12px
+            
+            .name
+                left: 0
+    
+    .name
+        position: absolute
+        top: -20px
+        font-size: 14px
+        right: 0
+        color: #999999
+    
+    .message-input
+        background-color: $c-main
+        width: 100%
+        color: white
+        border: none
+        padding: 20px
+        border-radius: 0 0 10px 10px
+        position: absolute
+        bottom: 0
+        font-family: $f
+
+    h2
+        padding: 20px
+        margin: 0
+        font-size: 18px
+        font-weight: 400
+        border-bottom: 1px solid #C5C5C5
+
 
 .bottom-content-bar
     background-color: $c-main

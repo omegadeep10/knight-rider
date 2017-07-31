@@ -95,7 +95,9 @@ export class TripService {
                         tripId: message.tripId,
                         userId: message.userId,
                         comment: message.comment,
-                        logDate: new Date(message.logDate)
+                        logDate: new Date(message.logDate),
+                        firstName: message.firstName,
+                        lastName: message.lastName
                     }));
                 }
             
@@ -164,7 +166,9 @@ export class TripService {
                         tripId: message.tripId,
                         userId: message.userId,
                         comment: message.comment,
-                        logDate: new Date(message.logDate)
+                        logDate: new Date(message.logDate),
+                        firstName: message.firstName,
+                        lastName: message.lastName
                     }));
                 }
             
@@ -237,7 +241,9 @@ export class TripService {
                         tripId: message.tripId,
                         userId: message.userId,
                         comment: message.comment,
-                        logDate: new Date(message.logDate)
+                        logDate: new Date(message.logDate),
+                        firstName: message.firstName,
+                        lastName: message.lastName
                     }));
                 }
             

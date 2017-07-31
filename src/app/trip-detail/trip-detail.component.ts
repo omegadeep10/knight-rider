@@ -14,6 +14,7 @@ export class TripDetailComponent implements OnInit {
 
   trip: Trip = new Trip();
   loading: boolean = true;
+  loggedInUserId = this.helperService.getUserId();
 
   constructor(
     private tripService: TripService,
@@ -102,6 +103,15 @@ export class TripDetailComponent implements OnInit {
     this.messageService.createMessage(this.trip.id, this.helperService.getUserId(), message).subscribe(
       data => {
         console.log(data);
+        (<HTMLInputElement>document.getElementById('messagebox')).value = '';
+        this.messageService.getMessages(this.trip.id).subscribe(
+          data => {
+            this.trip.messages = data;
+          },
+          error => {
+            this.alertService.error(error);
+          }
+        )
       },
       error => {
         console.log(error);

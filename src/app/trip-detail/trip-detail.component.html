@@ -43,12 +43,16 @@
   </div>
 
   <div class="messages-container">
+    <h2>Chat</h2>
 
-    <div *ngFor="let message of trip.messages" class="message">
-      <p class="name">{{ message.id }}</p>
-      <p class="message">{{ message.comment }}</p>
+    <div class="messages-overflow-ct">
+      <div *ngFor="let message of trip.messages" [ngClass]="{'current-user': loggedInUserId == message.userId }" class="message">
+        <p class="name">{{ message.firstName }} {{ message.lastName }}</p>
+        <p class="comment">{{ message.comment }}</p>
+      </div>
     </div>
-    <input type="text" #messagebox class="message-input" (keyup.enter)="submitMessage(messagebox.value)">
+
+    <input type="text" #messagebox id="messagebox" placeholder="Enter your message" class="message-input" (keyup.enter)="submitMessage(messagebox.value)">
   </div>
 
   <div class="bottom-content-bar">

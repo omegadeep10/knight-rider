@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { TripDetailComponent } from './trip-detail/trip-detail.component';
 import { NewTripComponent } from './new-trip/new-trip.component';
 import { SearchComponent } from './search/search.component';
+import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   },
   {
     path: 'search',

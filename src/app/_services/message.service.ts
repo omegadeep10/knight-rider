@@ -20,4 +20,26 @@ export class MessageService {
         return this.http.post(this._baseURL + `/messages/${trip_id}/${user_id}`, message, this.helperService.jwt())
             .map((res: Response) => { res });
     }
+
+    getMessages(trip_id) {
+        return this.http.get(this._baseURL + `/messages/${trip_id}`, this.helperService.jwt())
+            .map((res: Response) => {
+                let messages: Message[] = [];
+                let messageData = res.json();
+
+                for (let message of messageData) {
+                    messages.push(new Message({
+                        id: message.id,
+                        logDate: new Date(message.logDate),
+                        comment: message.comment,
+                        userId: message.userId,
+                        tripId: message.tripId,
+                        firstName: message.firstName,
+                        lastName: message.lastName
+                    }));
+                }
+
+                return messages;
+            })
+    }
 }

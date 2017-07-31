@@ -71,6 +71,8 @@ export class Message {
     id: number;
     logDate: Date;
     comment: string;
+    firstName: string;
+    lastName: string;
 
     constructor(init?: Partial<Message>) {
         Object.assign(this, init);
