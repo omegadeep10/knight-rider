@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
       'firstName': 'required',
       'lastName': 'required',
       'email': 'required|email',
-      'phone': 'required'
+      'phone': ''
     });
 
     this.userService.getUser(parseInt(this.helperService.getUserId())).subscribe(
@@ -55,7 +55,6 @@ export class ProfileComponent implements OnInit {
     this.user.lastName = formData.lastName;
     this.user.phone = formData.phone;
     this.user.profilePicture = this.image;
-    console.log(this.user);
 
     this.userService.updateUser(this.user).subscribe(
       data => {
@@ -66,7 +65,9 @@ export class ProfileComponent implements OnInit {
             this.loading = false;
           },
           error => {
+            this.loading = false;
             this.alertService.error(error);
+            console.log(error);
           }
         );
       },

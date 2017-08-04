@@ -2,7 +2,11 @@
     <div class="content-container">
         <h1 [routerLink]="['/home']">Knight Rider</h1>
         <nav>
-            <p>{{ user.firstName }} {{ user.lastName }}</p>
+            
+            <p>
+                <img src="{{ user.profilePicture }}" alt="{{ user.firstName }} {{ user.lastName }}" class="profile-pic">
+                {{ user.firstName }} {{ user.lastName }}
+            </p>
             <div class="dropdown">
                 <a [routerLink]="['/profile']">My Profile</a> 
                 <a [routerLink]="['/login']">Sign Out</a>
