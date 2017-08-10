@@ -6,7 +6,31 @@
     height: calc(100vh - 101px)
 
 .trips-container
-    display: none
+    display: block
+    position: absolute 
+    width: 360px
+    top: 100px
+    bottom: 0
+    left: 0
+    background-color: $c-main
+    overflow: auto
+
+    +tablet
+        display: none
+
+    .trip-card
+        background-color: white
+        border-radius: 10px
+        padding: 20px
+        display: block
+        width: 320px
+        margin: 20px auto
+        -webkit-box-shadow: 0px 0px 34px -17px rgba(0,0,0,0.75)
+        -moz-box-shadow: 0px 0px 34px -17px rgba(0,0,0,0.75)
+        box-shadow: 0px 0px 34px -17px rgba(0,0,0,0.75)
+
+        &:hover
+            background-color: #ededed
 
 .trip-card
     font-family: $f

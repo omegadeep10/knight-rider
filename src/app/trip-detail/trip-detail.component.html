@@ -29,7 +29,7 @@
     <div class="passengers">
       <p class="label">Passengers</p>
       <div *ngFor="let passenger of trip.passengers" class="passenger">
-        <img src="{{ passenger.profilePicture }}" alt="Passenger Name here">
+        <img src="{{ passenger.profilePicture || 'https://ct1.medstarhealth.org/content/uploads/2015/02/profile_male.jpg' }}" alt="">
         <div class="passenger-tooltip">
           {{ passenger.firstName }} {{ passenger.lastName }}
         </div>
