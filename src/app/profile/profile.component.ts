@@ -100,7 +100,7 @@ export class ProfileComponent implements OnInit {
 
 
     myReader.onloadend = (e) => {
-      this.image = myReader.result;
+      this.image = myReader.result.split(',')[1];
       console.log(this.image);
     }
     myReader.readAsDataURL(file);
