@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
   form;
   loading = false;
   image: string;
+  image_extension: string;
   fileUploadError = false;
   passwordError = false;
   user: User = new User({});
@@ -60,7 +61,8 @@ export class ProfileComponent implements OnInit {
       data => {
         this.alertService.success("Update was successful", true);
         
-        this.userService.updateUserPhoto(this.user.id, this.user.profilePicture).subscribe(
+        console.log(this.image_extension);
+        this.userService.updateUserPhoto(this.user.id, this.user.profilePicture, this.image_extension).subscribe(
           data => {
             this.loading = false;
           },
@@ -85,7 +87,10 @@ export class ProfileComponent implements OnInit {
 
   readThis(inputValue: any): void {
     var file:File = inputValue.files[0];
+    this.image_extension = file.name.split('.').pop();
+
     let filesize:number = (file.size/1024)/1024;
+
     if (filesize > 1) {
       this.alertService.error('Uploaded file is too large! Must be less than 1 megabyte.');
       return;

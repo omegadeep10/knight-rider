@@ -30,9 +30,10 @@ export class UserService {
             .map((res: Response) => { res });
     }
 
-    updateUserPhoto(user_id, base64Photo) {
+    updateUserPhoto(user_id, base64Photo, file_extension) {
         let data = {
-            profilePicture: base64Photo
+            profilePicture: base64Photo,
+            extension: file_extension
         };
 
         return this.http.post(this._baseURL + `/users/profilepicture/${user_id}`, data, this.helperService.jwt())
