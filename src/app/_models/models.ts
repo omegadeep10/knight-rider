@@ -33,6 +33,7 @@ export class Passenger {
     tripId: number;
     firstName: string;
     lastName: string;
+    profilePicture: string;
     joinDate: Date;
 
     constructor(init?: Partial<Passenger>) {

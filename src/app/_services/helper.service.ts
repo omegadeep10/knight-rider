@@ -6,7 +6,7 @@ declare var google: any;
 
 @Injectable()
 export class HelperService {
-    _baseURL: string = 'http://168.16.222.103:8080/knightrider';
+    _baseURL: string = 'http://168.16.222.104:8080/knightrider';
     geocoder = new google.maps.Geocoder();
 
     constructor(private http: Http) { }

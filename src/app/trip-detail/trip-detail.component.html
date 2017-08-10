@@ -21,7 +21,7 @@
   <div *ngIf="trip.driver" class="driver-container">
     <div class="driver cf">
       <p class="label">Driver</p>
-      <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="Your Driver">
+      <img src="{{ trip.driver.profilePicture || 'https://ct1.medstarhealth.org/content/uploads/2015/02/profile_male.jpg' }}" alt="Your Driver">
       <p class="name">{{ trip.driver.firstName }} {{ trip.driver.lastName }}</p>
       <p class="car">{{ trip.car.maker }} {{ trip.car.type }}</p>
     </div>
@@ -29,7 +29,7 @@
     <div class="passengers">
       <p class="label">Passengers</p>
       <div *ngFor="let passenger of trip.passengers" class="passenger">
-        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/k/128.jpg" alt="Passenger Name here">
+        <img src="{{ passenger.profilePicture }}" alt="Passenger Name here">
         <div class="passenger-tooltip">
           {{ passenger.firstName }} {{ passenger.lastName }}
         </div>

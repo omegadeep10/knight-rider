@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
-    _baseURL: string = 'http://168.16.222.103:8080/knightrider/';
+    _baseURL: string = 'http://168.16.222.104:8080/knightrider';
     constructor(private http: Http) { }
 
     login(username: string, password: string) {

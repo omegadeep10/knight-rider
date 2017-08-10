@@ -7,7 +7,7 @@ declare var google: any;
 
 @Injectable()
 export class TripService {
-    _baseURL: string = 'http://168.16.222.103:8080/knightrider';
+    _baseURL: string = 'http://168.16.222.104:8080/knightrider';
 
     constructor(private http: Http, private helperService: HelperService) { }
 
@@ -64,7 +64,8 @@ export class TripService {
                         userId: passenger.id,
                         tripId: trip.id,
                         firstName: passenger.firstName,
-                        lastName: passenger.lastName
+                        lastName: passenger.lastName,
+                        profilePicture: passenger.profilePicture
                     }));
                 }
 
@@ -76,7 +77,8 @@ export class TripService {
                     lastName: trip.driver.lastName,
                     address: trip.driver.address,
                     zip: trip.driver.zip,
-                    phone: trip.driver.phone
+                    phone: trip.driver.phone,
+                    profilePicture: trip.driver.profilePicture
                 });
 
                 //create temp car
@@ -146,7 +148,8 @@ export class TripService {
                         userId: passenger.id,
                         tripId: trip.id,
                         firstName: passenger.firstName,
-                        lastName: passenger.lastName
+                        lastName: passenger.lastName,
+                        profilePicture: passenger.profilePicture
                     }));
                 }
 
@@ -210,7 +213,8 @@ export class TripService {
                         userId: passenger.id,
                         tripId: trip.id,
                         firstName: passenger.firstName,
-                        lastName: passenger.lastName
+                        lastName: passenger.lastName,
+                        profilePicture: passenger.profilePicture
                     }));
                 }
 
@@ -222,7 +226,8 @@ export class TripService {
                     lastName: trip.driver.lastName,
                     address: trip.driver.address,
                     zip: trip.driver.zip,
-                    phone: trip.driver.phone
+                    phone: trip.driver.phone,
+                    profilePicture: trip.driver.profilePicture
                 });
 
                 //create temp car
