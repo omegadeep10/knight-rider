@@ -4,6 +4,7 @@ import { User, Trip, Passenger } from '../_models/';
 
 import { TripService, AlertService, UserService, HelperService, MessageService } from '../_services/';
 
+declare var google: any;
 
 @Component({
   selector: 'app-trip-detail',
@@ -13,7 +14,9 @@ import { TripService, AlertService, UserService, HelperService, MessageService }
 export class TripDetailComponent implements OnInit {
 
   trip: Trip = new Trip();
+  map;
   loading: boolean = true;
+  directionService = new google.maps.DirectionsService();
   loggedInUserId = this.helperService.getUserId();
 
   constructor(
@@ -24,22 +27,62 @@ export class TripDetailComponent implements OnInit {
     private messageService: MessageService,
     private activateRoute: ActivatedRoute,
     private router: Router
-  ) { 
-    activateRoute.params.subscribe((params: Params) => {
+  ) { }
+
+  ngOnInit() {
+    this.map = new google.maps.Map(document.getElementById("google-map"), {
+      center: new google.maps.LatLng(32.838131, -83.634705),
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    this.activateRoute.params.subscribe((params: Params) => {
       let tripId = params['id'];
-      tripService.getTrip(tripId).subscribe(
+      this.tripService.getTrip(tripId).subscribe(
         data => {
           this.trip = data;
           this.loading = false;
+
+          this.displayRoute(data);
         },
         error => {
           this.alertService.error(error);
         }
       )
     });
+
   }
 
-  ngOnInit() {
+  displayRoute(trip: Trip) {
+    let directionsDisplay = new google.maps.DirectionsRenderer();
+    let start = trip.originAddress;
+    let end = trip.destAddress;
+    directionsDisplay.setMap(this.map);
+
+    let waypnts = [];
+    for (let passenger of trip.passengers) {
+      waypnts.push({
+        location: passenger.address,
+        stopover: true
+      });
+    }
+    
+    let request = {
+      origin: start,
+      destination: end,
+      waypoints: waypnts,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+
+    let that = this;
+    this.directionService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else {
+        console.log(response, status);
+      }
+    });
   }
 
   deleteRide() {
@@ -67,10 +110,18 @@ export class TripDetailComponent implements OnInit {
   }
 
   joinRide() {
-    this.tripService.joinTrip(this.trip, this.helperService.getUserId()).subscribe(
+    this.userService.getUser().subscribe(
       data => {
-        this.alertService.success('Your trip reservation was successfully made.', true);
-        location.reload();
+        this.tripService.joinTrip(this.trip, data).subscribe(
+          data => {
+            this.alertService.success('Your trip reservation was successfully made.', true);
+            location.reload();
+          },
+          error => {
+            console.log(error);
+            this.alertService.error(error);
+          }
+        );
       },
       error => {
         console.log(error);

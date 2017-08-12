@@ -67,7 +67,8 @@ export class NewTripComponent implements OnInit {
     this.form = new ValidationManager({
       'origin': 'required',
       'destination': 'required',
-      'originDate': 'required'
+      'originDate': 'required',
+      'destName': 'required'
     });
 
     this.carForm = new ValidationManager({
@@ -110,6 +111,7 @@ export class NewTripComponent implements OnInit {
         that.trip.driverId = that.helperService.getUserId();
         that.trip.availableSeats = that.selectedCar.capacity;
         that.trip.car = that.selectedCar;
+        that.trip.destName = that.form.getData().destName;
 
         that.tripService.createTrip(that.trip).subscribe(
           data => {

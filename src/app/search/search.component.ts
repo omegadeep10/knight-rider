@@ -50,7 +50,7 @@ export class SearchComponent implements OnInit {
   }
 
   displayRoute(trip: Trip) {
-    let directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
+    let directionsDisplay = new google.maps.DirectionsRenderer();
     let start = trip.originAddress;
     let end = trip.destAddress;
     directionsDisplay.setMap(this.map);
@@ -90,6 +90,8 @@ export class SearchComponent implements OnInit {
       icon: iconImage,
       title: label
     });
+
+    console.log(marker);
 
     google.maps.event.addListener(marker, 'click', function() {
       that.infoWindow.setContent(html);

@@ -20,6 +20,7 @@ import { TripDetailComponent } from './trip-detail/trip-detail.component';
 import { NewTripComponent } from './new-trip/new-trip.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LiveViewComponent } from './live-view/live-view.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ProfileComponent } from './profile/profile.component';
     TripDetailComponent,
     NewTripComponent,
     SearchComponent,
-    ProfileComponent
+    ProfileComponent,
+    LiveViewComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,8 @@ export class User {
     zip?: string;
     phone?: string;
     profilePicture: string;
+    latitude: number;
+    longitude: number;
     cars: Car[];
 
     constructor(init?: Partial<User>) {
@@ -35,6 +37,9 @@ export class Passenger {
     lastName: string;
     profilePicture: string;
     joinDate: Date;
+    address: string;
+    latitude: number;
+    longitude: number;
 
     constructor(init?: Partial<Passenger>) {
         Object.assign(this, init);
@@ -49,6 +54,7 @@ export class Trip {
     originCity: string;
     originLatitude: number;
     originLongitude: number;
+    destName: string;
     destAddress: string;
     destCity: string;
     destLatitude: number;
@@ -61,6 +67,8 @@ export class Trip {
     car: Car;
     passengers: Passenger[];
     messages: Message[];
+    currentLatitude: number;
+    currentLongtitude: number;
 
     constructor(init?: Partial<Trip>) {
         Object.assign(this, init);

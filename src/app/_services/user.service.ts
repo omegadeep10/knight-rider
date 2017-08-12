@@ -3,15 +3,17 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
 import { User, Trip, Passenger, Car, Message } from '../_models/';
 import { HelperService } from './helper.service';
+import { environment } from '../../environments/environment';
 declare var google: any;
 
 @Injectable()
 export class UserService {
-    _baseURL: string = 'http://168.16.222.104:8080/knightrider';
+    _baseURL: string = environment.api;
 
     constructor(private http: Http, private helperService: HelperService) { }
 
     createUser(user: User) {
+        console.log(user);
         return this.http.post(this._baseURL + '/auth/register', user, this.helperService.jwt())
             .map((response: Response) => response.json());
     }
@@ -21,9 +23,7 @@ export class UserService {
             username: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            phone: user.phone,
-            zip: '',
-            address: ''
+            phone: user.phone
         }
 
         return this.http.put(this._baseURL + `/users/${user.id}`, data, this.helperService.jwt())

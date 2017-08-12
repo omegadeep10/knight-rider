@@ -3,10 +3,11 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
 import { User, Trip, Passenger, Car, Message } from '../_models/';
 import { HelperService } from './helper.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class MessageService {
-    _baseURL: string = 'http://168.16.222.104:8080/knightrider';
+    _baseURL: string = environment.api;
 
     constructor(private http: Http, private helperService: HelperService) { }
 
