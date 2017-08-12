@@ -17,10 +17,6 @@
           <p-calendar formControlName="originDate" placeholder="Enter Date & Time" showTime="showTime" hourFormat="12" [minDate]="TodaysDate()" readonlyInput="readonlyInput"></p-calendar>
         </div>
       </div>
-
-      <!--<div class="saved_addresses">
-        <span *ngFor="let ad of saved_addresses" (click)="form.setValue('origin', ad.address)">{{ ad.name }}</span>
-      </div>-->
     </section>
 
     <section class="destination-wrapper">
@@ -39,9 +35,12 @@
         </div>
       </div>
 
-      <!--<div class="saved_addresses">
-        <span *ngFor="let ad of saved_addresses" (click)="form.setValue('destination', ad.address)">{{ ad.name }}</span>
-      </div>-->
+      <div class="saved_events">
+        <div *ngFor="let ad of saved_events" (click)="setEventData(ad.address, ad.location)">
+          <p class="event-name">{{ ad.name }}</p>
+          <p class="location">{{ ad.location }}</p>
+        </div>
+      </div>
     </section>
 
     <section class="cars-wrapper">

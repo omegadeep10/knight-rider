@@ -1,3 +1,182 @@
+@import 'variables'
+@import 'media-queries'
+
 #google-map
     width: 100vw
-    height: calc(100vh - 110px)
+    height: calc(100vh - 101px)
+
+.trips-container
+    padding-top: 20px
+
+h2
+    font-family: $f
+    font-weight: 500
+    font-size: 14px
+    margin-left: 20px
+    color: #F8F8FF
+    margin-top: 10px
+
+.driver-container, .passenger-container
+    width: 360px
+    vertical-align: top
+    padding: 0 24px
+    margin: 15px 0
+
+    .info-wrapper
+        padding-left: 50px
+
+    .driver, .passenger
+        background-color: white
+        border-radius: 10px
+        padding: 15px 15px
+        margin: 10px 0
+
+        .address
+            margin-top: 10px
+            line-height: 20px
+            color: #787878
+            font-size: 14px
+            font-weight: 400
+
+
+        .name
+            font-size: 15px
+
+        img
+            width: 60px
+            height: 60px
+            float: left
+            margin-right: 22px
+
+        .car
+            margin-top: 10px
+            font-size: 14px
+            color: #787878
+            margin-left: 30px
+
+.trips-container
+    display: block
+    position: absolute 
+    width: 360px
+    top: 100px
+    bottom: 0
+    left: 0
+    background-color: $c-main
+    overflow: auto
+
+    +tablet
+        display: none
+
+    .trip-card
+        background-color: white
+        border-radius: 10px
+        padding: 20px
+        display: block
+        width: 320px
+        margin: 20px auto
+        -webkit-box-shadow: 0px 0px 34px -17px rgba(0,0,0,0.75)
+        -moz-box-shadow: 0px 0px 34px -17px rgba(0,0,0,0.75)
+        box-shadow: 0px 0px 34px -17px rgba(0,0,0,0.75)
+
+        &:hover
+            background-color: #ededed
+
+.trip-card
+    font-family: $f
+    display: inline-block
+    padding: 10px 0
+    border-radius: 10px
+    width: 280px
+    transition: all .2s ease
+    vertical-align: top
+    cursor: pointer
+
+    +large-phone
+        display: block
+        width: auto
+        margin-right: 0
+        padding-bottom: 0
+
+    h3
+        font-weight: 400
+        font-size: 16px
+        color: #3e3e3e
+        padding: 0 0 10px 15px
+        transition: all .2s ease
+
+        +tablet
+            font-size: 16px
+    
+    .arrow 
+        color: $c-main
+        margin: 0 8px
+
+.seats, .messages
+    display: inline-block
+    background-color: $c-main
+    margin-left: 15px
+    margin-top: 10px
+    color: white
+    padding: 15px 15px 10px 10px
+    border-radius: 10px
+    transition: all .2s ease
+
+    +large-phone
+        width: 50%
+        margin-left: 0
+        float: left
+        border-radius: 0 0 0 10px
+        padding-left: 15px
+        padding-bottom: 15px
+        margin-top: 10px
+
+    .available-seats
+        font-weight: 500
+        font-size: 16px
+        margin-top: 0
+        color: white
+    
+    p
+        font-size: 12px
+        color: #e0e0e0
+
+.messages
+    margin-left: 12px
+    background-color: $c-accent
+
+    +large-phone
+        margin-left: 0
+        border-radius: 0 0 10px 0
+
+    p
+        color: white
+
+
+.trip-info
+    padding: 10px 0 10px 30px
+    position: relative
+
+    .origin
+        margin-bottom: 20px
+    
+    .origin, .destination
+        position: relative
+        line-height: 20px
+
+        &:after
+            content: '⚬'
+            display: inline-block
+            position: absolute
+            left: -17px
+            top: -2px
+            color: $c-main
+            font-size: 17px
+
+    .title
+        font-size: 14px
+        color: #2d2d2d
+        margin-bottom: 5px
+    
+    .when
+        font-size: 11px
+        color: #878787

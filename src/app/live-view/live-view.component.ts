@@ -51,10 +51,7 @@ export class LiveViewComponent implements OnInit {
             map: this.map
           });
 
-          setInterval(() => { this.updateData() }, 10000);
-        },
-        error => {
-          this.alertService.error(error);
+          setTimeout(() => { this.updateData() }, 10000);
         }
       )
     });
@@ -67,6 +64,8 @@ export class LiveViewComponent implements OnInit {
         console.log("UPDATED");
         let latLng = new google.maps.LatLng(data.currentLatitude, data.currentLongtitude);
         this.marker.setPosition(latLng);
+
+        setTimeout(() => { this.updateData() }, 10000);
       },
       error => {
         this.alertService.error(error);
