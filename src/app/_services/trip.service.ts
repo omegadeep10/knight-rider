@@ -41,12 +41,17 @@ export class TripService {
             .map((res: Response) => { res });
     }
 
+    completeTrip(trip: Trip) {
+        return this.http.post(this._baseURL + `/completetrip/${trip.id}`, {}, this.helperService.jwt())
+            .map((res: Response) => res.json());
+    }
+
     joinTrip(trip: Trip, user: User) {
         let tripData = {
             userId: user.id,
             tripId: trip.id,
-            latitude: 0,
-            longitude: 0,
+            latitude: 0.0,
+            longitude: 0.0,
             address: user.address
         };
 
@@ -138,7 +143,9 @@ export class TripService {
                     driver: driver_temp,
                     car: car_temp,
                     passengers: passengers_temp,
-                    messages: messages_temp
+                    messages: messages_temp,
+                    completed: trip.completed,
+                    completedTimestamp: new Date(trip.completedTimestamp)
                 }));
             }
 
@@ -210,7 +217,9 @@ export class TripService {
                     remainingSeats: trip.remainingSeats,
                     car: car_temp,
                     passengers: passengers_temp,
-                    messages: messages_temp
+                    messages: messages_temp,
+                    completed: trip.completed,
+                    completedTimestamp: new Date(trip.completedTimestamp)
                 }));
             }
 
@@ -296,7 +305,9 @@ export class TripService {
                     passengers: passengers_temp,
                     messages: messages_temp,
                     currentLatitude: trip.currentLatitude,
-                    currentLongtitude: trip.currentLongitude
+                    currentLongtitude: trip.currentLongitude,
+                    completed: trip.completed,
+                    completedTimestamp: new Date(trip.completedTimestamp)
                 });
             
 

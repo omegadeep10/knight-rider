@@ -23,8 +23,11 @@ export class UserService {
             username: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
+            address: user.address,
             phone: user.phone
         }
+
+        console.log(data);
 
         return this.http.put(this._baseURL + `/users/${user.id}`, data, this.helperService.jwt())
             .map((res: Response) => { res });

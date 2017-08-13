@@ -97,6 +97,15 @@ export class TripDetailComponent implements OnInit {
     );
   }
 
+  completeRide() {
+    this.tripService.completeTrip(this.trip).subscribe(
+      data => {
+        this.alertService.success('Trip complete! Check your email for more information.', true);
+        this.router.navigate(['/home']);
+      }
+    )
+  }
+
   leaveRide() {
     this.tripService.leaveTrip(this.trip, this.helperService.getUserId()).subscribe(
       data => {

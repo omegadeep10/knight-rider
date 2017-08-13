@@ -61,6 +61,7 @@
   <div class="bottom-content-bar">
       <div class="content-container">
           <a *ngIf="currentUserIsTheDriver()" (click)="deleteRide()" class="button">Delete Ride</a>
+          <a *ngIf="currentUserIsTheDriver()" (click)="completeRide()" class="button">Complete Ride</a>
           <a *ngIf="currentUserIsAPassenger()" (click)="leaveRide()" class="button">Leave Ride</a>
           <a *ngIf="!currentUserIsAPassenger() && !currentUserIsTheDriver()" (click)="joinRide()" class="button">Join Ride</a>
       </div>

@@ -24,6 +24,8 @@ export class Car {
     maker: string;
     type: string;
     capacity: number;
+    color: string;
+    licensePlate: string;
 
     constructor(init?: Partial<Car>) {
         Object.assign(this, init);
@@ -69,6 +71,8 @@ export class Trip {
     messages: Message[];
     currentLatitude: number;
     currentLongtitude: number;
+    completed: boolean;
+    completedTimestamp: Date;
 
     constructor(init?: Partial<Trip>) {
         Object.assign(this, init);

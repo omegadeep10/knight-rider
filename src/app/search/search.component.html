@@ -3,6 +3,7 @@
 <div id="google-map"></div>
 
 <div class="trips-container">
+    <p class="empty" *ngIf="trips.length == 0">No rides found</p>
   <a *ngFor="let trip of trips" [id]="trip.id" class="trip-card cf" [href]="'/trip/' + trip.id">
       <h3>{{ trip.destName }}</h3>
       <div class="trip-info">

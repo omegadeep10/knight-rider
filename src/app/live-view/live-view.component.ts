@@ -48,12 +48,48 @@ export class LiveViewComponent implements OnInit {
 
           this.marker = new google.maps.Marker({
             position: latLng,
-            map: this.map
+            map: this.map,
+            icon: '../../assets/ripple.gif',
+            optimized: false
           });
+
+          this.displayRoute(data);
 
           setTimeout(() => { this.updateData() }, 10000);
         }
       )
+    });
+  }
+
+  displayRoute(trip: Trip) {
+    let directionsDisplay = new google.maps.DirectionsRenderer();
+    let start = trip.originAddress;
+    let end = trip.destAddress;
+    directionsDisplay.setMap(this.map);
+
+    let waypnts = [];
+    for (let passenger of trip.passengers) {
+      waypnts.push({
+        location: passenger.address,
+        stopover: true
+      });
+    }
+    
+    let request = {
+      origin: start,
+      destination: end,
+      waypoints: waypnts,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+
+    let that = this;
+    this.directionService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else {
+        console.log(response, status);
+      }
     });
   }
 
