@@ -32,6 +32,20 @@ export class Car {
     }
 }
 
+export class Location {
+    id: number;
+    tripId: number;
+    userId: number;
+    latitude: number;
+    longitude: number;
+    speed: number;
+    currentTime: Date;
+
+    constructor(init?: Partial<Location>) {
+        Object.assign(this, init);
+    }
+}
+
 export class Passenger {
     userId: number;
     tripId: number;
@@ -69,6 +83,7 @@ export class Trip {
     car: Car;
     passengers: Passenger[];
     messages: Message[];
+    locations: Location[];
     currentLatitude: number;
     currentLongtitude: number;
     completed: boolean;

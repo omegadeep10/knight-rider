@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
-import { User, Trip, Passenger, Car, Message } from '../_models/';
+import { User, Trip, Passenger, Car, Message, Location } from '../_models/';
 import { HelperService } from './helper.service';
 import { environment } from '../../environments/environment';
 declare var google: any;
@@ -232,6 +232,19 @@ export class TripService {
             //variable to store trip data
             let trip = response.json();
 
+                let locations_temp: Location[] = [];
+                for (let location of trip.locations) {
+                    locations_temp.push({
+                        id: location.id,
+                        userId: location.userId,
+                        tripId: location.tripId,
+                        latitude: location.latitude,
+                        longitude: location.longitude,
+                        speed: location.speed,
+                        currentTime: new Date(location.currentTime)
+                    });
+                }
+
             //Create an array of passengers for each trip
                 let passengers_temp: Passenger[] = [];
                 for (let passenger of trip.passengers) {
@@ -304,6 +317,7 @@ export class TripService {
                     car: car_temp,
                     passengers: passengers_temp,
                     messages: messages_temp,
+                    locations: locations_temp,
                     currentLatitude: trip.currentLatitude,
                     currentLongtitude: trip.currentLongitude,
                     completed: trip.completed,

@@ -16,6 +16,7 @@ export class LiveViewComponent implements OnInit {
   trip: Trip = new Trip();
   map;
   marker;
+  locationMarkers = [];
   loading: boolean = true;
   directionService = new google.maps.DirectionsService();
   loggedInUserId = this.helperService.getUserId();
@@ -53,9 +54,18 @@ export class LiveViewComponent implements OnInit {
             optimized: false
           });
 
+          console.log(this.trip.locations);
+
+          for (let location of this.trip.locations) {
+            this.locationMarkers.push(new google.maps.Marker({
+              position: new google.maps.LatLng(location.latitude, location.longitude),
+              map: this.map,
+              icon: '../../assets/dot.ico'
+            }));
+          }
           this.displayRoute(data);
 
-          setTimeout(() => { this.updateData() }, 10000);
+          setTimeout(() => { this.updateData() }, 5000);
         }
       )
     });
@@ -101,7 +111,21 @@ export class LiveViewComponent implements OnInit {
         let latLng = new google.maps.LatLng(data.currentLatitude, data.currentLongtitude);
         this.marker.setPosition(latLng);
 
-        setTimeout(() => { this.updateData() }, 10000);
+        for (let mk of this.locationMarkers) {
+          mk.setMap(null);
+        }
+
+        this.locationMarkers = [];
+
+        for (let location of this.trip.locations) {
+          this.locationMarkers.push(new google.maps.Marker({
+            position: new google.maps.LatLng(location.latitude, location.longitude),
+            map: this.map,
+            icon: '../../assets/dot.ico'
+          }));
+        }
+
+        setTimeout(() => { this.updateData() }, 5000);
       },
       error => {
         this.alertService.error(error);
