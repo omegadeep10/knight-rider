@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
+import { environment } from '../../environments/environment'
 
 declare var google: any;
 
 @Injectable()
 export class HelperService {
-    _baseURL: string = 'http://168.16.222.104:8080/knightrider';
+    _baseURL: string = environment.api;
     geocoder = new google.maps.Geocoder();
 
     constructor(private http: Http) { }

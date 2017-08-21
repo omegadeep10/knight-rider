@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
-    _baseURL: string = 'http://168.16.222.104:8080/knightrider';
+    _baseURL: string = environment.api;
     constructor(private http: Http) { }
 
     login(username: string, password: string) {
