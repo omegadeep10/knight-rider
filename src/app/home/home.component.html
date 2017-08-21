@@ -2,8 +2,9 @@
 
 <div class="home">
     <h2>Your Rides</h2>
+    <p class="empty" *ngIf="trips.length == 0">You don't seem to have any active rides. Try finding a ride to join or making one by using the options below.</p>
     <div *ngFor="let trip of trips" class="trip-card cf" [routerLink]="['/trip', trip.id]">
-        <h3>{{ trip.originCity }} <span class="arrow">➔</span> {{ trip.destCity }}</h3>
+        <h3>{{ trip.destName }}</h3>
         <div class="trip-info">
             <div class="origin">
                 <p class="title">{{ trip.originAddress }} </p>

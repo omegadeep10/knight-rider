@@ -1,20 +1,21 @@
 <menu-bar></menu-bar>
 
 <div class="trip">
-  <h2>{{ trip.originCity }} <span class="arrow">➔</span> {{ trip.destCity }}</h2>
+  <h2>{{ trip.destName }}</h2>
   
   <div class="trip-info-container">
     <div class="trip-info">
       <div class="origin">
-          <p class="label">Pickup Location</p>
-          <p class="title">{{ trip.originAddress }} </p>
+          <p class="label">Stadium Address</p>
+          <p class="title">{{ trip.destAddress }} </p>
           <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
       </div>
-      <div class="destination">
-          <p class="label">Dropoff Location</p>
-          <p class="title">{{ trip.destAddress }}</p>
-          <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
-      </div>
+    </div>
+
+    <button [routerLink]="['/live-view/' + trip.id]" class="button">View Live Location</button>
+
+    <div id="google-map">
+      
     </div>
   </div>
 
@@ -23,15 +24,17 @@
       <p class="label">Driver</p>
       <img src="{{ trip.driver.profilePicture || 'https://ct1.medstarhealth.org/content/uploads/2015/02/profile_male.jpg' }}" alt="Your Driver">
       <p class="name">{{ trip.driver.firstName }} {{ trip.driver.lastName }}</p>
+      <p class="address">{{ trip.driver.address }}</p>
       <p class="car">{{ trip.car.maker }} {{ trip.car.type }}</p>
     </div>
 
     <div class="passengers">
       <p class="label">Passengers</p>
-      <div *ngFor="let passenger of trip.passengers" class="passenger">
+      <div *ngFor="let passenger of trip.passengers" class="passenger cf">
         <img src="{{ passenger.profilePicture || 'https://ct1.medstarhealth.org/content/uploads/2015/02/profile_male.jpg' }}" alt="">
-        <div class="passenger-tooltip">
-          {{ passenger.firstName }} {{ passenger.lastName }}
+        <div class="passenger-info">
+          <p class="name">{{ passenger.firstName }} {{ passenger.lastName }}</p>
+          <p class="address">{{ passenger.address }}</p>
         </div>
       </div>
 
@@ -58,6 +61,7 @@
   <div class="bottom-content-bar">
       <div class="content-container">
           <a *ngIf="currentUserIsTheDriver()" (click)="deleteRide()" class="button">Delete Ride</a>
+          <a *ngIf="currentUserIsTheDriver()" (click)="completeRide()" class="button">Complete Ride</a>
           <a *ngIf="currentUserIsAPassenger()" (click)="leaveRide()" class="button">Leave Ride</a>
           <a *ngIf="!currentUserIsAPassenger() && !currentUserIsTheDriver()" (click)="joinRide()" class="button">Join Ride</a>
       </div>

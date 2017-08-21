@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  api: 'http://168.16.222.104:8080/knightrider'
+  api: 'http://168.16.222.104:8080/ridesharing'
 };

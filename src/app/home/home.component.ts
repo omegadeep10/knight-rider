@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   constructor(private tripService: TripService, private alertService: AlertService) { 
     tripService.getUserTrips().subscribe(
       data => {
-        this.trips = data;
+        this.trips = data.filter(elm => { return elm.completed === false; });
         this.loading = false;
       },
       error => {

@@ -3,7 +3,8 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
 import { User, Trip, Passenger, Car, Message } from '../_models/';
 import { HelperService } from './helper.service';
-import { environment } from '../../environments/environment'
+
+import { environment } from '../../environments/environment';
 declare var google: any;
 
 @Injectable()

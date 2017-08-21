@@ -22,7 +22,7 @@ section
         margin-top: 30px
 
 .destination-wrapper, .cars-wrapper
-    margin-top: 80px
+    margin-top: 40px
 
     +tablet
         margin-top: 40px
@@ -53,19 +53,25 @@ h2
             width: 100%
 
 
-.saved_addresses
+.saved_events
     margin-top: 15px
 
-    span
+    div
         font-family: $f
         font-size: 12px
         color: white
+        display: inline-block
         background-color: $c-main
-        padding: 5px 13px
+        padding: 10px 13px
         cursor: pointer
-        margin-right: 5px
-        border-radius: 20px
+        margin-right: 10px
+        border-radius: 7px
         transition: all .2s ease
+
+        .event-name
+            font-size: 14px
+            font-weight: 500
+            margin-bottom: 5px
 
         +tablet
             display: inline-block

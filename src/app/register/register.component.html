@@ -1,7 +1,7 @@
 <div class="register-container">
     <div class="register-page">
         <h1>Register Now</h1>
-        <p class="subtitle">Please note that registration is currently limited to MGA students only.</p>
+        <p class="subtitle">Please note that registration is currently limited to students only.</p>
         
         <form name="register-form" [formGroup]="form.getForm()" (ngSubmit)="form.isValid() && submit()" novalidate>
             <alert></alert>
@@ -39,6 +39,14 @@
               <div class="form-group">
                   <input type="password" name="matchingPassword" formControlName="matchingPassword" placeholder="matchingPassword"/>
                   <div *ngIf="form.hasError('matchingPassword')" class="error">{{ form.getError('matchingPassword') }}</div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <p>What's your address?</p>
+              <div class="form-group">
+                  <input type="text" name="address" formControlName="address" placeholder="address"/>
+                  <div *ngIf="form.hasError('address')" class="error">{{ form.getError('address') }}</div>
               </div>
             </div>
 

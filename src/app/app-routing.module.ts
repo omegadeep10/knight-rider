@@ -7,6 +7,7 @@ import { TripDetailComponent } from './trip-detail/trip-detail.component';
 import { NewTripComponent } from './new-trip/new-trip.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LiveViewComponent } from './live-view/live-view.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
@@ -44,6 +45,11 @@ const routes: Routes = [
   {
     path: 'new-trip',
     component: NewTripComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'live-view/:id',
+    component: LiveViewComponent,
     canActivate: [AuthGuard]
   }
 ];

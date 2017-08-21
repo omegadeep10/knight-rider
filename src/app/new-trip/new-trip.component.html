@@ -17,10 +17,6 @@
           <p-calendar formControlName="originDate" placeholder="Enter Date & Time" showTime="showTime" hourFormat="12" [minDate]="TodaysDate()" readonlyInput="readonlyInput"></p-calendar>
         </div>
       </div>
-
-      <div class="saved_addresses">
-        <span *ngFor="let ad of saved_addresses" (click)="form.setValue('origin', ad.address)">{{ ad.name }}</span>
-      </div>
     </section>
 
     <section class="destination-wrapper">
@@ -32,10 +28,18 @@
           <div *ngIf="form.hasError('destination')" class="error">Destination address is required</div>
           <div *ngIf="destinationError" class="error">This address is unrecognized or invalid.</div>
         </div>
+
+        <div class="form-group">
+          <input type="text" class="destination-name" name="destName" formControlName="destName" placeholder="Enter Stadium Name">
+          <div *ngIf="form.hasError('destName')" class="error">Stadium name is required</div>
+        </div>
       </div>
 
-      <div class="saved_addresses">
-        <span *ngFor="let ad of saved_addresses" (click)="form.setValue('destination', ad.address)">{{ ad.name }}</span>
+      <div class="saved_events">
+        <div *ngFor="let ad of saved_events" (click)="setEventData(ad.address, ad.location)">
+          <p class="event-name">{{ ad.name }}</p>
+          <p class="location">{{ ad.location }}</p>
+        </div>
       </div>
     </section>
 

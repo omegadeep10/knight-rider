@@ -1,10 +1,10 @@
 <div class="menu-container">
     <div class="content-container">
-        <h1 [routerLink]="['/home']">Knight Rider</h1>
+        <h1 [routerLink]="['/home']">rideshare.io</h1>
         <nav>
             
             <p>
-                <img src="{{ user.profilePicture }}" alt="{{ user.firstName }} {{ user.lastName }}" class="profile-pic">
+                <img src="{{ user.profilePicture || 'https://ct1.medstarhealth.org/content/uploads/2015/02/profile_male.jpg' }}" alt="{{ user.firstName }} {{ user.lastName }}" class="profile-pic">
                 {{ user.firstName }} {{ user.lastName }}
             </p>
             <div class="dropdown">

@@ -57,6 +57,7 @@ export class ProfileComponent implements OnInit {
     this.user.phone = formData.phone;
     this.user.profilePicture = this.image;
 
+
     this.userService.updateUser(this.user).subscribe(
       data => {
         this.alertService.success("Update was successful", true);

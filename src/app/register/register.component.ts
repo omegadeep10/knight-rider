@@ -31,7 +31,8 @@ export class RegisterComponent implements OnInit {
       'email': 'required|email',
       'phone': 'digits',
       'password': 'required|minLength:4',
-      'matchingPassword': 'required|equalTo:password'
+      'matchingPassword': 'required|equalTo:password',
+      'address': 'required'
     });
   }
 

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map'
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class AuthenticationService {
     _baseURL: string = environment.api;

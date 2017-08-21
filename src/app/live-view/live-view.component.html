@@ -1,0 +1,50 @@
+<menu-bar></menu-bar>
+<div id="google-map"></div>
+
+<div class="trips-container">
+    <h2>Trip Information</h2>
+    
+    <a [id]="trip.id" class="trip-card cf" [href]="'/trip/' + trip.id">
+        <h3>{{ trip.destName }}</h3>
+        <div class="trip-info">
+            <div class="origin">
+                <p class="title">{{ trip.originAddress | slice:0:35 }}...</p>
+                <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
+            </div>
+            <div class="destination">
+                <p class="title">{{ trip.destAddress | slice:0:35 }}...</p>
+                <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
+            </div>
+        </div>
+    </a>
+
+    <h2>Driver</h2>
+
+    <div *ngIf="trip.driver" class="driver-container">
+        <div class="driver cf">
+            <img src="{{ trip.driver.profilePicture || 'https://ct1.medstarhealth.org/content/uploads/2015/02/profile_male.jpg' }}" alt="Your Driver">
+            <div class="info-wrapper">
+                <p class="name">{{ trip.driver.firstName }} {{ trip.driver.lastName }}</p>
+                <p class="address">{{ trip.driver.address }}</p>
+                <p class="car">{{ trip.car.maker }} {{ trip.car.type }}</p>
+            </div>
+        </div>
+    </div>
+
+    <h2>Passengers</h2>
+
+    <div class="passenger-container">
+        <div *ngFor="let passenger of trip.passengers" class="passenger cf">
+            <img src="{{ passenger.profilePicture || 'https://ct1.medstarhealth.org/content/uploads/2015/02/profile_male.jpg' }}" alt="">
+            <div class="info-wrapper">
+                <p class="name">{{ passenger.firstName }} {{ passenger.lastName }}</p>
+                <p class="address">{{ passenger.address }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="loading" class="loading">
+  <img src="./assets/loading.gif" alt="">
+</div>
