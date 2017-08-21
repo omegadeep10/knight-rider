@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
-import { environment } from '../../environments/environment'
 
 import { environment } from '../../environments/environment';
 declare var google: any;
