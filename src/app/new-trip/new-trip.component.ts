@@ -15,27 +15,27 @@ import { AlertService, UserService, CarService, HelperService, TripService } fro
 export class NewTripComponent implements OnInit {
   form;
   carForm;
-  saved_events = [
+  saved_addresses = [
     {
-      name: 'Falcons vs Patriots',
-      location: 'Georgia Dome',
-      address: '1 Georgia Dome Dr, Atlanta, GA 30313'
+      name: 'Macon Campus',
+      address: '100 University Parkway Macon, GA 31206'
     },
     {
-      name: 'Georgia Tech Baseball',
-      location: 'North Dekalb Stadium',
-      address: '3688 Chamblee Dunwoody Rd, Chamblee, GA 30341'
+      name: 'Warner Robins Campus',
+      address: '100 University Boulevard Warner Robins, GA 31093'
     },
     {
-      name: 'Westlake Field & Track',
-      location: 'Turner Field',
-      address: '755 Hank Aaron Dr SE, Atlanta, GA 30315'
+      name: 'Dublin Campus',
+      address: '1900 Bellevue Road Dublin, GA 31021'
     },
     {
-      name: 'Georgia Southern Tennis',
-      location: 'Georgia Dome',
-      address: '1 Georgia Dome Dr, Atlanta, GA 30313'
-    }
+      name: 'Cochran Campus',
+      address: '1100 Second Street, S.E. Cochran, GA 31014'
+    },
+    {
+      name: 'Eastman Campus',
+      address: '71 Airport Road Eastman, GA 31023'
+    },
   ];
   loading = true;
   trip: Trip = new Trip();
@@ -67,8 +67,7 @@ export class NewTripComponent implements OnInit {
     this.form = new ValidationManager({
       'origin': 'required',
       'destination': 'required',
-      'originDate': 'required',
-      'destName': 'required'
+      'originDate': 'required'
     });
 
     this.carForm = new ValidationManager({
@@ -111,7 +110,6 @@ export class NewTripComponent implements OnInit {
         that.trip.driverId = that.helperService.getUserId();
         that.trip.availableSeats = that.selectedCar.capacity;
         that.trip.car = that.selectedCar;
-        that.trip.destName = that.form.getData().destName;
 
         that.tripService.createTrip(that.trip).subscribe(
           data => {
@@ -146,11 +144,6 @@ export class NewTripComponent implements OnInit {
 
   TodaysDate() {
     return new Date();
-  }
-
-  setEventData(address, stadium_name) {
-    this.form.setValue('destination', address);
-    this.form.setValue('destName', stadium_name);
   }
 
   createCar() {

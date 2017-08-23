@@ -1,13 +1,18 @@
 <menu-bar></menu-bar>
 
 <div class="trip">
-  <h2>{{ trip.destName }}</h2>
+  <h2>{{ trip.originCity }} <span class="arrow">➔</span> {{ trip.destCity }}</h2>
   
   <div class="trip-info-container">
     <div class="trip-info">
       <div class="origin">
-          <p class="label">Stadium Address</p>
-          <p class="title">{{ trip.destAddress }} </p>
+          <p class="label">Pickup Location</p>
+          <p class="title">{{ trip.originAddress }} </p>
+          <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
+      </div>
+      <div class="destination">
+          <p class="label">Dropoff Location</p>
+          <p class="title">{{ trip.destAddress }}</p>
           <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
       </div>
     </div>
