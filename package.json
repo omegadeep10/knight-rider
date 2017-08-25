@@ -34,6 +34,7 @@
     "@angular/cli": "1.1.2",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/language-service": "^4.0.0",
+    "@types/cordova": "0.0.34",
     "@types/googlemaps": "^3.26.16",
     "@types/jasmine": "2.5.45",
     "@types/node": "~6.0.60",
