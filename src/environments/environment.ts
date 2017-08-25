@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  api: 'http://168.16.222.104:8080/ridesharing'
+  api: 'http://knightrider.mgaitec.net:8080/ridesharing'
 };

@@ -15,9 +15,8 @@ export class AuthenticationService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('X-Requested-With', 'XMLHttpRequest');
-        headers.append('Cache-Control', 'no-cache');
 
-
+        console.log(credentials);
         return this.http.post(this._baseURL + '/auth/login', credentials, { headers: headers })
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
