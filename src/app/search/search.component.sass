@@ -148,8 +148,11 @@
     padding: 10px 0 10px 30px
     position: relative
 
+    +tablet
+        padding-left: 13px
+
     +large-phone
-        padding: 20px 20px 20px 35px
+        padding: 20px
 
     .origin
         margin-bottom: 20px
@@ -166,6 +169,9 @@
             top: -2px
             color: $c-main
             font-size: 17px
+
+            +tablet
+                display: none
 
     .title
         font-size: 14px
