@@ -8,12 +8,14 @@
                 {{ user.firstName }} {{ user.lastName }}
             </p>
             <div class="dropdown">
+                <a [routerLink]="['/home']">Home</a>
                 <a [routerLink]="['/profile']">My Profile</a> 
                 <a [routerLink]="['/login']">Sign Out</a>
             </div>
-            <span class="open-menu" (click)="openMenu()">☰</span>
+            <span class="open-menu" (click)="openMenu()"><img src="./assets/menu.png" alt=""></span>
             <div [ngClass]="menu" (click)="closeMenu()" class="mobile-menu-container">
                 <div [ngClass]="sidebar" class="mobile-menu">
+                    <a [routerLink]="['/home']">Home</a>
                     <a [routerLink]="['/profile']">My Profile</a>   
                     <a [routerLink]="['/login']">Sign Out</a>
                 </div>
