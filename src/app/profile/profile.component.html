@@ -23,7 +23,7 @@
               <p>Upload a profile photo.</p>
               <div class="form-group">
                   <input class="profile-upload" type="file" accept="image/*" (change)="changeListener($event)" name="profilePhoto" placeholder="Profile Photo"/>
-                  <img class="profile-output" [src]="image" alt="">
+                  <img *ngIf="image" class="profile-output" src="{{ image }}" alt="">
               </div>
             </div>
 

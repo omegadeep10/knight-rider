@@ -89,21 +89,14 @@ export class ProfileComponent implements OnInit {
   readThis(inputValue: any): void {
     var file:File = inputValue.files[0];
     this.image_extension = file.name.split('.').pop();
-
-    let filesize:number = (file.size/1024)/1024;
-
-    if (filesize > 1) {
-      this.alertService.error('Uploaded file is too large! Must be less than 1 megabyte.');
-      return;
-    }
     
     var myReader:FileReader = new FileReader();
 
 
     myReader.onloadend = (e) => {
       this.image = myReader.result.split(',')[1];
-      console.log(this.image);
     }
+    
     myReader.readAsDataURL(file);
   }
 
