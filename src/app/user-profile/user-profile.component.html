@@ -1,0 +1,32 @@
+<menu-bar></menu-bar>
+
+<div class="user-container">
+  <div class="user">
+    <h2>Myungjae Kwak</h2>
+    <p class="address">1398 North Oak Street, Macon GA, 31201</p>
+
+    <p class="label">Vehicles</p>
+    <div class="car">
+      <h3>Ford Escape</h3>
+      <p>4 Seats Total</p>
+    </div>
+  </div>
+
+  <div class="reviews-container">
+    <p class="label">Reviews</p>
+
+    <div class="review">
+      <h3>Deep Patel <span class="date">02/21/2017</span></h3>
+      <p><span class="score">5/5</span> It was a great trip.</p>
+    </div>
+    
+    <div class="review">
+      <h3>Deep Patel <span class="date">02/21/2017</span></h3>
+      <p><span class="score">5/5</span> It was a great trip.</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading">
+  <img src="./assets/loading.gif" alt="">
+</div>

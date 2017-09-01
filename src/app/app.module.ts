@@ -21,6 +21,7 @@ import { NewTripComponent } from './new-trip/new-trip.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LiveViewComponent } from './live-view/live-view.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LiveViewComponent } from './live-view/live-view.component';
     NewTripComponent,
     SearchComponent,
     ProfileComponent,
-    LiveViewComponent
+    LiveViewComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

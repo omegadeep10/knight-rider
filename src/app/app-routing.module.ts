@@ -8,6 +8,7 @@ import { NewTripComponent } from './new-trip/new-trip.component';
 import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LiveViewComponent } from './live-view/live-view.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent
+  },
+  {
+    path: 'user/:id',
+    component: UserProfileComponent
   },
   {
     path: 'search',

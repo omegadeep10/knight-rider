@@ -107,3 +107,19 @@ export class Message {
         Object.assign(this, init);
     }
 }
+
+export class Review {
+    tripId: number;
+    userId: number;
+    id: number;
+    logDate: Date;
+    score: number;
+    profilePicture: string;
+    comment: string;
+    firstName: string;
+    lastName: string;
+
+    constructor(init?: Partial<Review>) {
+        Object.assign(this, init);
+    }
+}

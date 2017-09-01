@@ -66,13 +66,31 @@
   <div class="bottom-content-bar">
       <div class="content-container">
           <a *ngIf="currentUserIsTheDriver()" (click)="deleteRide()" class="button">Delete Ride</a>
-          <a *ngIf="currentUserIsTheDriver()" (click)="completeRide()" class="button">Complete Ride</a>
+          <a *ngIf="currentUserIsTheDriver()" (click)="showReviewForm = true" class="button">Complete Ride</a>
           <a *ngIf="currentUserIsAPassenger()" (click)="leaveRide()" class="button">Leave Ride</a>
           <a *ngIf="!currentUserIsAPassenger() && !currentUserIsTheDriver()" (click)="joinRide()" class="button">Join Ride</a>
       </div>
   </div>
 
 </div>
+
+<form *ngIf="showReviewForm" class="review-form" name="review-form" [formGroup]="reviewForm.getForm()" (ngSubmit)="reviewForm.isValid() && submitReview()" novalidate>
+    <h2>Review</h2>
+    <p>Leave a review of your trip.</p>
+    <div class="form-group">
+      <label for="score">Score</label>
+      <input type="number" name="score" formControlName="score" min="1" max="5">
+      <div *ngIf="reviewForm.hasError('score')" class="error">Score must be between 1 to 5</div>
+    </div>
+    <div class="form-group">
+      <label for="type">Comment</label>
+      <textarea name="comment" formControlName="comment" placeholder="Your comment"></textarea>
+      <div *ngIf="reviewForm.hasError('comment')" class="error">Your review is required</div>
+    </div>
+
+    <button class="button submit" type="submit">Submit</button>
+    <button class="button cancel" (click)="showReviewForm = false">Cancel</button>
+  </form>
 
 <div *ngIf="loading" class="loading">
   <img src="./assets/loading.gif" alt="">

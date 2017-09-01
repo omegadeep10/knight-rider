@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { User, Trip, Passenger } from '../_models/';
+import { ValidationManager } from 'ng2-validation-manager';
+import { User, Trip, Review, Passenger } from '../_models/';
 
 import { TripService, AlertService, UserService, HelperService, MessageService } from '../_services/';
 
@@ -15,6 +16,8 @@ export class TripDetailComponent implements OnInit {
 
   trip: Trip = new Trip();
   map;
+  showReviewForm = false;
+  reviewForm;
   loading: boolean = true;
   directionService = new google.maps.DirectionsService();
   loggedInUserId = this.helperService.getUserId();
@@ -30,6 +33,11 @@ export class TripDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.reviewForm = new ValidationManager({
+      'score': 'required|number|min:1|max:5',
+      'comment': 'required'
+    });
+
     this.map = new google.maps.Map(document.getElementById("google-map"), {
       center: new google.maps.LatLng(32.838131, -83.634705),
       zoom: 10,
@@ -91,7 +99,7 @@ export class TripDetailComponent implements OnInit {
   completeRide() {
     this.tripService.completeTrip(this.trip).subscribe(
       data => {
-        this.alertService.success('Trip complete! Check your email for more information.', true);
+        this.alertService.success('Your review was submitted and your trip was completed.', true);
         this.router.navigate(['/home']);
       }
     )
@@ -168,6 +176,26 @@ export class TripDetailComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+
+  submitReview() {
+    let review = new Review({
+      tripId: this.trip.id,
+      userId: parseInt(this.loggedInUserId),
+      comment: this.reviewForm.getData().comment,
+      score: this.reviewForm.getData().score
+    });
+
+    this.userService.submitReview(review).subscribe(
+      data => {
+        this.showReviewForm = false;
+        this.completeRide();
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
 }

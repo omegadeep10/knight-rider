@@ -361,3 +361,60 @@ h2
 
         &:hover
             background-color: $c-link
+
+.review-form
+    position: fixed
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    background-color: #282828
+    border: 1px solid #404040
+    padding: 0 35px
+    padding-top: 10px
+    padding-bottom: 35px
+    width: 350px
+    border-radius: 10px
+
+    h2
+        margin: 25px 0 10px 0
+    
+    p
+        color: #909090
+        margin-bottom: 30px
+
+    textarea
+        font-family: $f
+        border-radius: 5px
+        border: none
+        width: 100%
+        padding: 10px
+        height: 100px
+    
+    label
+        display: block
+        font-family: $f
+        font-size: 14px
+        margin-top: 20px
+        font-weight: 500
+        margin-bottom: 5px
+        color: #787878
+    
+    .form-group
+        display: block
+        margin-right: 0
+
+        input
+            width: 100%
+    
+    .button
+        margin-top: 20px
+        
+        +tablet
+            width: 100%
+    
+    .cancel
+        margin-left: 16px
+        
+        +tablet
+            margin-left: 0
+            width: 100%

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
-import { User, Trip, Passenger, Car, Message } from '../_models/';
+import { User, Trip, Passenger, Car, Review, Message } from '../_models/';
 import { HelperService } from './helper.service';
 import { environment } from '../../environments/environment';
 declare var google: any;
@@ -75,5 +75,17 @@ export class UserService {
 
             return usr;
         });
+    }
+
+    submitReview(review: Review) {
+        let data = {
+            tripId: review.tripId,
+            userId: review.userId,
+            comment: review.comment,
+            score: review.score
+        }
+
+        return this.http.post(this._baseURL + `/reviews/${review.tripId}/${review.userId}`, data, this.helperService.jwt())
+            .map((res: Response) => { res });
     }
 }
