@@ -13,12 +13,14 @@ import { TripService, AlertService } from '../_services/';
 })
 export class HomeComponent implements OnInit {
   trips: Trip[] = [];
+  completedTrips: Trip[] = [];
   loading: boolean = true;
 
   constructor(private tripService: TripService, private alertService: AlertService) { 
     tripService.getUserTrips().subscribe(
       data => {
         this.trips = data.filter(elm => { return elm.completed === false; });
+        this.completedTrips = data.filter(elm => { return elm.completed === true; });
         this.loading = false;
       },
       error => {

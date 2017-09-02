@@ -33,6 +33,37 @@
         </div>
     </div>
 
+    <h2>Your Completed Rides</h2>
+    <div *ngFor="let trip of completedTrips" class="trip-card cf" [routerLink]="['/trip', trip.id]">
+        <h3>{{ trip.originCity }} <span class="arrow">➔</span> {{ trip.destCity }}</h3>
+        <div class="trip-info">
+            <div class="origin">
+                <p class="title">{{ trip.originAddress }} </p>
+                <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
+            </div>
+            <div class="destination">
+                <p class="title">{{ trip.destAddress }}</p>
+                <p class="when">{{ trip.departureTime | date:'shortTime' }} - {{ trip.departureTime | date:'mediumDate' }}</p>
+            </div>
+        </div>
+
+        <!--<div class="driver cf">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg" alt="Your Driver">
+            <p class="name">Benjamin Franklin</p>
+            <p class="car">Chevy Malibu 2012</p>
+        </div>-->
+
+        <div class="seats">
+            <p class="available-seats">{{ trip.remainingSeats }}</p>
+            <p>Seats</p>
+        </div>
+
+        <div class="messages">
+            <p class="available-seats">{{ trip.messages.length | number:'2.0-0' }}</p>
+            <p>Messages</p>
+        </div>
+    </div>
+
     <div class="bottom-content-bar">
         <div class="content-container">
             <a [routerLink]="['/search']" class="button">Find Ride</a>
