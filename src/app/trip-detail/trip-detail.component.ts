@@ -67,10 +67,20 @@ export class TripDetailComponent implements OnInit {
     let end = trip.destAddress;
     directionsDisplay.setMap(this.map);
 
+    let waypnts = [];
+    for (let passenger of trip.passengers) {
+      waypnts.push({
+        location: passenger.address,
+        stopover: true
+      });
+    }
+
     
     let request = {
       origin: start,
       destination: end,
+      waypoints: waypnts,
+      optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.DRIVING
     };
 

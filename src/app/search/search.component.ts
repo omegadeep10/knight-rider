@@ -50,14 +50,24 @@ export class SearchComponent implements OnInit {
   }
 
   displayRoute(trip: Trip) {
-    let directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+    let directionsDisplay = new google.maps.DirectionsRenderer();
     let start = trip.originAddress;
     let end = trip.destAddress;
     directionsDisplay.setMap(this.map);
+
+    let waypnts = [];
+    for (let passenger of trip.passengers) {
+      waypnts.push({
+        location: passenger.address,
+        stopover: true
+      });
+    }
     
     let request = {
       origin: start,
       destination: end,
+      waypoints: waypnts,
+      optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.DRIVING
     };
 
@@ -68,8 +78,8 @@ export class SearchComponent implements OnInit {
 
         
         let leg = response.routes[0].legs[0];
-        that.makeMarker(leg.start_location, 'START', document.getElementById(trip.id.toString()).cloneNode(true), 'http://maps.google.com/mapfiles/marker_purpleA.png');
-        that.makeMarker(leg.end_location, 'END', document.getElementById(trip.id.toString()).cloneNode(true), 'http://maps.google.com/mapfiles/marker_purpleB.png');
+        //that.makeMarker(leg.start_location, 'START', document.getElementById(trip.id.toString()).cloneNode(true), 'http://maps.google.com/mapfiles/marker_purpleA.png');
+        //that.makeMarker(leg.end_location, 'END', document.getElementById(trip.id.toString()).cloneNode(true), 'http://maps.google.com/mapfiles/marker_purpleB.png');
         
       } else {
         console.log(response, status);
