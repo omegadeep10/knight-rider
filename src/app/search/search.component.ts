@@ -110,13 +110,18 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  expandCard(trip_id) {
+  expandCard(trip_id, event) {
     let card = document.getElementById(trip_id);
     let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
     //on tablets and below, just route directly no accordian style clicking
     if (width < 769) {
       this.router.navigate(['/trip/' + trip_id]);
+    }
+
+    if ((event.target.tagName == "A" || event.target.tagName == "H3") && card.classList.contains('open')) {
+      card.classList.remove('open');
+      return;
     }
 
     if (card.classList.contains('open')) {

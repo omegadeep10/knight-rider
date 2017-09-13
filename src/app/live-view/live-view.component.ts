@@ -46,9 +46,10 @@ export class LiveViewComponent implements OnInit {
           });
 
           let latLng = new google.maps.LatLng(data.currentLatitude, data.currentLongtitude);
+          let latLng2 = new google.maps.LatLng(data.originLatitude, data.originLongitude);
 
           this.marker = new google.maps.Marker({
-            position: latLng,
+            position: latLng2,
             map: this.map,
             icon: './assets/ripple.gif',
             optimized: false
@@ -65,7 +66,7 @@ export class LiveViewComponent implements OnInit {
           }
           this.displayRoute(data);
 
-          setTimeout(() => { this.updateData() }, 5000);
+          //setTimeout(() => { this.updateData() }, 5000);
         }
       )
     });
@@ -77,10 +78,19 @@ export class LiveViewComponent implements OnInit {
     let end = trip.destAddress;
     directionsDisplay.setMap(this.map);
 
+    let waypnts = [];
+    for (let passenger of trip.passengers) {
+      waypnts.push({
+        location: passenger.address,
+        stopover: true
+      });
+    }
     
     let request = {
       origin: start,
       destination: end,
+      waypoints: waypnts,
+      optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.DRIVING
     };
 
